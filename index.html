@@ -508,7 +508,7 @@ footer {
         VehicleNumber: $('#vehicleNumber').val(),
         Reason: $('#reason').val(),
         VisitorType: $('input[name="visitorType"]:checked').val(),
-        Image: canvas.toDataURL('image/png') // Sending base64 image
+        Image: canvas.toDataURL('image/png', 0.5) // Sending base64 image
     };
 
     // Send data using Fetch API
