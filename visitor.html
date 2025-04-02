@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Management - CHAVAN PARADISE</title>
+    <style>
+       body {
+    font-family: 'Arial', sans-serif;
+    background-color: #2D3436;
+    margin: 0;
+    padding: 10px;
+    border: 20px solid #800000; /* Burgundy border */
+    box-sizing: border-box;
+	background-image : url('https://lh3.googleusercontent.com/p/AF1QipPZV0QdjODym-RluDo_EAFdw9xfep2EBU5kJDOx=s680-w680-h510-rw');
+    border-radius: 20px; /* Rounds the corners of the border */
+    overflow: hidden; /* Ensures corners are properly rounded */
+}
+footer {
+    text-align: center;
+    background-color: #181818; /* Same as your header background */
+    color: white;
+    padding: 5px 0; /* Thin padding for a minimal look */
+    position: relative; /* Allows positioning if needed */
+    bottom: 0; /* Sticks to the bottom */
+    width: 100%; /* Full width */
+    font-size: 12px; /* Smaller font size */
+    border-top: 1px solid #800000; /* Optional: border for separation */
+}
+       h3 {
+    text-align: center;
+    color: white; /* Highlighted building name color */
+    margin-bottom: 0px;
+    background-color: #181818;
+    text-transform: uppercase; /* Capital letters */
+    border-radius: 10px; /* Adjust the value for more or less rounding */
+    padding: 10px; /* Optional: Adds space inside the element */
+}
+        h5 {
+            text-align: center;
+			color:white;            
+            font-weight: bold;
+            margin-top: 0;
+            font-size: 10px;
+        }
+        form {
+            max-width: 100%;
+            margin: auto;
+            padding: 10px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin: 5px 0;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        input, textarea,select,option {
+            width: 95%;
+            padding: 6px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+		select {
+            width: 98%;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+		
+        button {
+            padding: 8px;
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        button:hover {
+            background-color: #26734d;
+			color:black;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+        .radio-group label {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .gate1 {
+            background-color: black;
+			 color: white;
+        }
+        .gate2 {
+            background-color: black;
+            color: white;
+        }
+         .radio-group {
+            margin: 10px 0;
+			 border-radius: 50%;
+        }
+        .radio-group label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .radio-group input {
+            display: none; /* Hide default radio buttons */
+        }
+		.radio-group input:checked + label {
+    background-color: #800000; /* Burgundy color for highlight */
+    color: white; /* Change text color to white for better contrast */
+    border: 2px solid #fff; /* Optional: white border around selected label */
+}
+        .radio-group input + span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+		.radio-group :hover {
+    background-color: #f0f0f1;
+	color:black;
+}
+.radio-relatives
+{
+ background-color: #lightblue;
+}
+        .radio-housekeeping span { background-color: #4CAF50; } /* Green */
+        .radio-security span { background-color: #ff9800; } /* Orange */
+        .radio-relatives span { background-color: #2196F3; } /* Blue */
+        .radio-delivery span { background-color: #9C27B0; } /* Purple */
+        .radio-other span { background-color: #FF5722; } /* Red */
+        .radio-group input:checked + span {
+            border: 2px solid #333; /* Border for checked state */
+        }
+        #video {
+            width: 150px;   /* Set width to 200 pixels */
+            height: 150px;  /* Set height to 200 pixels */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        #photo {
+            width: 150px;   /* Set width to 200 pixels */
+            height: 150px;  /* Set height to 200 pixels */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+		.visitorForm1{
+		 
+		}
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
+<body>
+
+<h3>CHAVAN PARADISE PHASE 1</h3>
+<h5>VISITOR MANAGEMENT</h5>
+<h5> Survey No 28 / 26 / 09, Jijamata Chowk Ambeon Pathar Pune, 46</h5>
+
+<form id="visitorForm" class="visitorForm1">  
+    <div class="radio-group">
+        <input type="radio" id="gate1" name="gate" value="gate1" required checked>
+        <label class="gate1" for="gate1">Gate No 1</label>
+        
+        <input type="radio" id="gate2" name="gate" value="gate2">
+        <label class="gate2" for="gate2">Gate No 2</label>
+    </div>
+
+    <input type="text" id="name" name="name" Placeholder="नाव टाका / Enter Visitor's Name/नाम डाले" required>
+    <input type="tel" id="phone" name="phone" Placeholder="मोबाइल नंबर / Enter Visitor's Contact" required>
+    
+    <input type="number" id="numVisitors" name="numVisitors" Placeholder="संख्या/ Enter Visitor's Count" required min="1">
+    
+    <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder="गाडी नंबर / Enter Visitor's Vehicle Number">
+
+    <select id="flatNumber" name="flatNumber" required placeholder="फ्लॅट नंबर निवडा ">
+        <option value="" style="85%">फ्लॅट नंबर / Select Flat Number</option>
+     <!-- A Wing -->
+        <optgroup label="A Wing">
+            <option value="A101">A101</option>
+            <option value="A102">A102</option>
+            <option value="A103">A103</option>
+            <option value="A104">A104</option>
+            <option value="A105">A105</option>
+            <option value="A106">A106</option>
+			
+            <option value="A201">A201</option>
+            <option value="A202">A202</option>
+            <option value="A203">A203</option>
+            <option value="A204">A204</option>
+            <option value="A205">A205</option>
+            <option value="A206">A206</option>
+			
+			<option value="A301">A301</option>
+            <option value="A302">A302</option>
+            <option value="A303">A303</option>
+            <option value="A304">A304</option>
+            <option value="A305">A305</option>
+            <option value="A306">A306</option>
+			
+			<option value="A401">A401</option>
+            <option value="A402">A402</option>
+            <option value="A403">A403</option>
+            <option value="A404">A404</option>
+            <option value="A405">A405</option>
+            <option value="A406">A406</option>
+			
+			<option value="A501">A501</option>
+            <option value="A502">A502</option>
+            <option value="A503">A503</option>
+            <option value="A504">A504</option>
+            <option value="A505">A505</option>
+            <option value="A506">A506</option>
+			
+			<option value="A601">A601</option>
+            <option value="A602">A602</option>
+            <option value="A603">A603</option>
+            <option value="A604">A604</option>
+            <option value="A605">A605</option>
+            <option value="A606">A606</option>
+			
+			
+			<option value="A701">A701</option>
+            <option value="A702">A702</option>
+            <option value="A703">A703</option>
+            <option value="A704">A704</option>
+            <option value="A705">A705</option>
+            <option value="A706">A706</option>
+			
+			<option value="A801">A801</option>
+            <option value="A802">A802</option>
+            <option value="A803">A803</option>
+            <option value="A804">A804</option>
+            <option value="A805">A805</option>
+            <option value="A806">A806</option>
+			
+			<option value="A901">A901</option>
+            <option value="A902">A902</option>
+            <option value="A903">A903</option>
+            <option value="A904">A904</option>
+            <option value="A905">A905</option>
+            <option value="A906">A906</option>
+			
+            <option value="A1001">A1001</option>
+            <option value="A1002">A1002</option>
+            <option value="A1003">A1003</option>
+            <option value="A1004">A1004</option>
+            <option value="A1005">A1005</option>
+            <option value="A1006">A1006</option>
+        </optgroup>
+        <!-- B Wing -->
+        <optgroup label="B Wing">
+            <option value="B101">B101</option>
+            <option value="B102">B102</option>
+            <option value="B103">B103</option>
+            <option value="B104">B104</option>
+			
+			<option value="B201">B201</option>
+            <option value="B202">B202</option>
+            <option value="B203">B203</option>
+            <option value="B204">B204</option>
+			
+			<option value="B301">B301</option>
+            <option value="B302">B302</option>
+            <option value="B303">B303</option>
+            <option value="B304">B304</option>
+			
+			<option value="B401">B401</option>
+            <option value="B402">B402</option>
+            <option value="B403">B403</option>
+            <option value="B404">B404</option>	
+		
+			<option value="B501">B501</option>
+            <option value="B502">B502</option>
+            <option value="B503">B503</option>
+            <option value="B504">B504</option>
+			
+			<option value="B601">B601</option>
+            <option value="B602">B602</option>
+            <option value="B603">B603</option>
+            <option value="B604">B604</option>
+			
+			<option value="B701">B701</option>
+            <option value="B702">B702</option>
+            <option value="B703">B703</option>
+            <option value="B704">B704</option>
+			
+			<option value="B801">B801</option>
+            <option value="B802">B802</option>
+            <option value="B803">B803</option>
+            <option value="B804">B804</option>
+			
+			<option value="B901">B901</option>
+            <option value="B902">B902</option>
+            <option value="B903">B903</option>
+            <option value="B904">B904</option>
+			
+            <option value="B1001">B1001</option>
+            <option value="B1002">B1002</option>
+            <option value="B1003">B1003</option>
+            <option value="B1004">B1004</option>
+        </optgroup>
+        <!-- C Wing -->
+        <optgroup label="C Wing">
+            <option value="C101">C101</option>
+            <option value="C102">C102</option>
+            <option value="C103">C103</option>
+            <option value="C104">C104</option>
+            <option value="C105">C105</option>
+            <option value="C106">C106</option>
+			
+            <option value="C201">C201</option>
+            <option value="C202">C202</option>
+            <option value="C203">C203</option>
+            <option value="C204">C204</option>
+            <option value="C205">C205</option>
+            <option value="C206">C206</option>
+			
+			<option value="C301">C301</option>
+            <option value="C302">C302</option>
+            <option value="C303">C303</option>
+            <option value="C304">C304</option>
+            <option value="C305">C305</option>
+            <option value="C306">C306</option>
+			
+			<option value="C401">C401</option>
+            <option value="C402">C402</option>
+            <option value="C403">C403</option>
+            <option value="C404">C404</option>
+            <option value="C405">C405</option>
+            <option value="C406">C406</option>
+			
+			<option value="C501">C501</option>
+            <option value="C502">C502</option>
+            <option value="C503">C503</option>
+            <option value="C504">C504</option>
+            <option value="C505">C505</option>
+            <option value="C506">C506</option>
+			
+			<option value="C601">C601</option>
+            <option value="C602">C602</option>
+            <option value="C603">C603</option>
+            <option value="C604">C604</option>
+            <option value="C605">C605</option>
+            <option value="C606">C606</option>
+			
+			<option value="C701">C701</option>
+            <option value="C702">C702</option>
+            <option value="C703">C703</option>
+            <option value="C704">C704</option>
+            <option value="C705">C705</option>
+            <option value="C706">C706</option>
+			
+			<option value="C801">C801</option>
+            <option value="C801">C801</option>
+            <option value="C801">C801</option>
+            <option value="C801">C801</option>
+            <option value="C801">C801</option>
+            <option value="C801">C801</option>
+			
+			<option value="C801">C801</option>
+            <option value="C801">C801</option>
+            <option value="C801">C801</option>
+            <option value="C801">C801</option>
+            <option value="C801">C801</option>
+            <option value="C801">C801</option>
+			
+            <option value="C1001">C1001</option>
+            <option value="C1002">C1002</option>
+            <option value="C1003">C1003</option>
+            <option value="C1004">C1004</option>
+            <option value="C1005">C1005</option>
+            <option value="C1006">C1006</option>
+        </optgroup>
+    </select>
+	<br>
+    <textarea id="reason" name="reason" rows="2" Placeholder="कारण / Reason"></textarea>
+
+    <label>Visitor Type:</label>
+   <div class="radio-group">
+    <label class="radio-relatives">
+        <input type="radio" name="visitorType" value="relatives" checked>
+        <span></span> 
+        <i class="fa fa-user" style="font-size:24px;color:#2196F3;"></i> <b><font color="#2196F3;">Relative - नातेवाईक</font></b>
+    </label>
+    <label class="radio-housekeeping"> 
+        <input type="radio" name="visitorType" value="housekeeping" required>
+        <span></span> 
+        <i class="fa fa-home" style="font-size:24px;color:#4CAF50;"></i> <b><font color="#2196F3;">Housekeeping - घरकाम</font></b>
+    </label>
+    <label class="radio-delivery">
+        <input type="radio" name="visitorType" value="delivery">
+        <span></span> 
+        <i class='fa fa-truck' style='font-size:24px;color:purple;'></i> <b><font color="#2196F3;">Delivery - वितरण</font></b>
+    </label>
+	<label class="radio-other">
+        <input type="radio" name="visitorType" value="other">
+        <span></span> 
+        <i class='fa fa-question' style='font-size:24px;color:#FF5722;'></i> <b><font color="#2196F3;">Other - इतर</font></b>
+    </label>
+    <!--<label class="radio-other" style="font-size:24px;color:#FF5722;">
+        <input type="radio" name="visitorType" value="other"  style="font-size:24px;color:#FF5722;"><b><font color="#2196F3;"><h6>Other - इतर</h6></font></b>
+        <span></span> 
+        <i class="fa fa-circle"></i>-->
+    </label>
+</div>
+
+    <table align="center">
+        <tr>
+            <td>
+                <video id="video" autoplay></video>
+               
+            </td>
+            <td>            
+                <img id="photo" src="data:image/png;base64,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" alt="Captured Image will be appeared here" />
+				
+            </td>
+        </tr>
+    </table>
+	 <button type="button" id="capture">फोटो काढा / फोटो खिंचे /Capture Photo</button>
+<canvas id="canvas" style="display:none;"></canvas>
+    <button type="submit">परवानगी द्या /अनुमति दें /Allow Visitor</button>
+</form>
+ <footer>
+        <p>&copy; 2024 Thread IoT. All rights reserved.</p>
+    </footer>
+<script>
+    $(document).ready(function() {
+        $('#flatNumber').select2({
+            placeholder: "Select Flat Number",
+            allowClear: true,
+        });
+
+        $('#flatNumber').on('select2:select', function(e) {
+            const selectedFlat = e.params.data.text;
+            alert(`Selected Flat Number: ${selectedFlat}`);
+        });
+
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const photo = document.getElementById('photo');
+        const captureButton = document.getElementById('capture');
+
+       navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { ideal: "environment" } } // Access back camera
+        })
+        .then(stream => {
+            video.srcObject = stream;
+        })
+        .catch(err => {
+            console.error("Error accessing camera: ", err);
+            alert("Camera access denied. Please check your permissions.");
+        });
+		/* navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            video.srcObject = stream;
+        })
+        .catch(err => {
+            console.error("Error accessing camera: ", err);
+        });*/
+		const base64Image="";
+        captureButton.addEventListener('click', () => {
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight; // Adjust if needed
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const base64Image = canvas.toDataURL('image/png');
+            photo.setAttribute('src', base64Image);
+        });
+
+       $('#visitorForm').on('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Create JSON object with form data
+    var visitorData = {
+        Gate: $('input[name="gate"]:checked').val(),
+        Name: $('#name').val(),
+        Phone: $('#phone').val(),
+        NumVisitors: parseInt($('#numVisitors').val()),
+        FlatNumber: $('#flatNumber').val(),
+        VehicleNumber: $('#vehicleNumber').val(),
+        Reason: $('#reason').val(),
+        VisitorType: $('input[name="visitorType"]:checked').val(),
+        Image: canvas.toDataURL('image/png') // Sending base64 image
+    };
+
+    // Send data using Fetch API
+    fetch("https://67ecd7d44387d9117bbb2839.mockapi.io/cpendpoint/Visitor", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(visitorData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Data stored:", data);
+        alert("Form submitted successfully!");
+    })
+    .catch(error => console.error("Error:", error));
+});
+});
+</script>
+</body>
+</html>
