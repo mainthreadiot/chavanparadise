@@ -54,6 +54,20 @@ footer {
             display: flex;
             flex-direction: column;
         }
+		
+		.select2-container .select2-selection--single {
+			height: 30px !important;  /* Adjust height as needed */
+			line-height: 30px !important;
+		}
+
+		.select2-container--default .select2-selection--single .select2-selection__rendered {
+			line-height: 30px !important;
+		}
+		
+		.select2-dropdown {
+			height: 30px !important; /* Adjust height as needed */
+		}
+		
         label {
             margin: 5px 0;
             font-weight: bold;
@@ -174,6 +188,23 @@ footer {
 		.visitorForm1{
 		 
 		}
+		.mandatory {
+        border: 2px solid #651C32;
+    }
+
+    .mandatory:focus {
+        border-color: #651C32;
+    }
+
+    .error {
+        border-color: red !important;
+        background-color: #ffe6e6;
+    }
+
+    .error::placeholder {
+        color: red;
+        font-weight: bold;
+    }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -194,25 +225,25 @@ footer {
         <!--<input type="radio" id="gate2" name="gate" value="gate2">
         <label class="gate2" for="gate2">Gate No 2-->
     </div>
-<button id="entrygate1">( Gate Number 1  ) Add New Visitor +</button>
-<hr> <b>Security</b>
+<button id="entrygate1">🚪 Add New Visitor | Gate 1🚪</button>
+<hr> <b>  Security Info </b>
   <select id="securityPersons" name="securityPersons" required placeholder="Select Secutiy Person ">
-        <option value="" style="85%">Security Name</option>     
+        <option value="" style="85%">👤Security Name </option>     
             <option value="A101">Mr. Patil</option>
 			<option value="A101">Mr. Jadhav</option>
 			<option value="A101">Mr. Deshmukh</option>		
 		</option>
 		
 		</select>
-		<hr> <b>Visitor</b>
-    <input type="text" id="name" name="name" Placeholder="नाव टाका / Enter Visitor's Name/नाम डाले" required>
-    <input type="tel" id="phone" name="phone" Placeholder="मोबाइल नंबर / Enter Visitor's Contact" required>
+		<hr> <b>  Visitor Info </b>
+    <input type="text" id="name" name="name" Placeholder=" 🚶 नाव टाका / Enter Visitor's Name/नाम डाले" required class="mandatory">
+    <input type="tel" id="phone" name="phone" Placeholder="📱 मोबाइल नंबर / Enter Visitor's Contact" required class="mandatory">
     
-    <input type="number" id="numVisitors" name="numVisitors" Placeholder="संख्या/ Enter Visitor's Count" required min="1">
+    <input type="number" id="numVisitors" name="numVisitors" Placeholder=" ? संख्या/ Enter Visitor's Count" required min="1" class="mandatory">
     
-    <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder="गाडी नंबर / Enter Visitor's Vehicle Number">
+    <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder=" 🚗 गाडी नंबर / Enter Visitor's Vehicle Number">
 
-    <select id="flatNumber" name="flatNumber" required placeholder="फ्लॅट नंबर निवडा ">
+    <select id="flatNumber" name="flatNumber" required placeholder="🏠 फ्लॅट नंबर निवडा " class="mandatory">
         <option value="" style="85%">फ्लॅट नंबर / Select Flat Number</option>
      <!-- A Wing -->
         <optgroup label="A Wing">
@@ -515,7 +546,7 @@ function resizeCanvas(canvas, maxWidth, maxHeight) {
 }
     $(document).ready(function() {
         $('#flatNumber').select2({
-            placeholder: "Select Flat Number",
+            placeholder: "🏠 Select Flat Number",
             allowClear: true,
         });
 
@@ -564,7 +595,6 @@ const entrygate2s = document.getElementById('entrygate2');
     document.getElementById("vehicleNumber").value = "";
     document.getElementById("flatNumber").selectedIndex = 0; // Reset dropdown selection
         });
-		
        $('#visitorForm').on('submit', function(event) {
     event.preventDefault(); // Prevent default form submission
 
