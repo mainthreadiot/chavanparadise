@@ -652,19 +652,12 @@ var data = JSON.stringify({
     }
 });
 
+var proxyUrl = "https://cors-anywhere.herokuapp.com/";
+var targetUrl = "https://cpsociety.co.in/Services/Visitor/VisitorInfo/create";
+
 var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function() {
-    if (this.readyState === 4) {
-        console.log(this.responseText);
-    }
-});
-
-xhr.open("POST", "https://cpsociety.co.in/Services/Visitor/VisitorInfo/create");
+xhr.open("POST", proxyUrl + targetUrl);
 xhr.setRequestHeader("Content-Type", "application/json");
-// WARNING: Cookies will be stripped away by the browser before sending the request.
-
 xhr.send(data);
 });
 });
