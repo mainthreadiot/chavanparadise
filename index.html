@@ -63,7 +63,8 @@ footer {
 		.select2-container--default .select2-selection--single .select2-selection__rendered {
 			line-height: 30px !important;
 		}
-				
+		
+	
 		
         label {
             margin: 5px 0;
@@ -223,8 +224,8 @@ footer {
         <label class="gate2" for="gate2">Gate No 2-->
     </div>
 <button id="entrygate1">🚪 Add New Visitor | Gate 1🚪</button>
-<hr> <b style="display:none;">  Security Info </b>
-  <select id="securityPersons" name="securityPersons" required placeholder="Select Secutiy Person " style="display:none;">
+<hr> <b>  Security Info </b>
+  <select id="securityPersons" name="securityPersons" required placeholder="Select Secutiy Person ">
         <option value="" style="85%">👤Security Name </option>     
             <option value="A101">Mr. Patil</option>
 			<option value="A101">Mr. Jadhav</option>
@@ -602,34 +603,45 @@ const entrygate2s = document.getElementById('entrygate2');
     if (base64Image.length > 1615) {
         base64Image = base64Image.substring(0, 1615);
     }
+	const now = new Date();
 
-    // Create JSON object with form data
-    var visitorData = {
-        Gate: $('input[name="gate"]:checked').val(),
-        Name: $('#name').val(),
-        Phone: $('#phone').val(),
-        NumVisitors: parseInt($('#numVisitors').val()),
-        FlatNumber: $('#flatNumber').val(),
-        VehicleNumber: $('#vehicleNumber').val(),
-        Reason: $('#reason').val(),
-        VisitorType: $('input[name="visitorType"]:checked').val(),
-        Image: base64Image // Compressed and trimmed
-    };
+// Format the date and time together
+const currentDateTime = now.toLocaleString(); // e.g., "4/25/2025, 10:15:30 AM"
+var data = JSON.stringify({
+    "Entity": {
+        "Name": $('#name').val(),
+        "MobileNumber": $('#phone').val(),
+        "VehicleNumber": $('#vehicleNumber').val(),
+        "VisitorCount": 2,
+        "FlatNo": $('#flatNumber').val(),
+        "Reason": $('#reason').val(),
+        "Image": base64Image,
+        "VisitorType": $('input[name="visitorType"]:checked').val(),
+        "LoginTime": currentDateTime,
+        "LogoutTime": "2025-04-25T11:00:00Z",
+        "ApprovalStatus": 0,
+        "Extra1": "Extra data 1",
+        "Extra2": "Extra data 2",
+        "Extra3": "Extra data 3",
+        "Extra4": "Extra data 4",
+        "Extra5": "Extra data 5"
+    }
+});
 
-    // Send data using Fetch API
-    fetch("https://67ecd7d44387d9117bbb2839.mockapi.io/cpendpoint/Visitor", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(visitorData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Data stored:", data);
-        alert("Form submitted successfully!");
-    })
-    .catch(error => console.error("Error:", error));
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+    if (this.readyState === 4) {
+        console.log(this.responseText);
+    }
+});
+
+xhr.open("POST", "http://localhost:22367/Services/Visitor/VisitorInfo/create");
+xhr.setRequestHeader("Content-Type", "application/json");
+// WARNING: Cookies will be stripped away by the browser before sending the request.
+
+xhr.send(data);
 });
 });
 </script>
