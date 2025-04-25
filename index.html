@@ -203,6 +203,23 @@ footer {
         color: red;
         font-weight: bold;
     }
+	.input-group {
+      display: flex;
+      align-items: center;
+      gap: 8px; /* space between input and button */
+    }
+
+    .input-group input {
+      flex: 1;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    .input-group button {
+      padding: 8px 12px;
+      font-size: 20px;
+      cursor: pointer;
+    }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -224,23 +241,29 @@ footer {
         <label class="gate2" for="gate2">Gate No 2-->
     </div>
 <button id="entrygate1">🚪 Add New Visitor | Gate 1🚪</button>
-<hr> <b>  Security Info </b>
-  <select id="securityPersons" name="securityPersons" required placeholder="Select Secutiy Person ">
-        <option value="" style="85%">👤Security Name </option>     
-            <option value="A101">Mr. Patil</option>
-			<option value="A101">Security 1</option>
-			<option value="A101">Security 2</option>		
-		</option>
-		
-		</select>
-		<hr> <b>  Visitor Info </b>
-    <input type="text" id="name" name="name" Placeholder=" 🚶 नाव टाका / Enter Visitor's Name/नाम डाले" required class="mandatory">
-    <input type="tel" id="phone" name="phone" Placeholder="📱 मोबाइल नंबर / Enter Visitor's Contact" required class="mandatory">
-    
-    <input type="number" id="numVisitors" value ="1" name="numVisitors" Placeholder=" ? संख्या/ Enter Visitor's Count" required min="1" class="mandatory">
-    
-    <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder=" 🚗 गाडी नंबर / Enter Visitor's Vehicle Number">
 
+	<hr> <b>  Visitor Info </b>
+    <div class="input-group">
+    <input
+      type="text"
+      id="name"
+      name="name"
+      placeholder="🚶 नाव टाका / Enter Visitor's Name / नाम डाले"
+      required
+      class="mandatory"
+    />
+    <button id="toggle" title="Speak">🎙️</button>
+  </div>
+   <div class="input-group">
+    <input type="tel" id="phone" maxlength="10" minlength=10 name="phone" Placeholder="📱 मोबाइल नंबर / Enter Visitor's Contact" required class="mandatory">
+    </div>
+	   <div class="input-group">
+    <input type="number" id="numVisitors" name="numVisitors" Placeholder=" ? संख्या/ Enter Visitor's Count" required min="1" class="mandatory">
+    </div>
+	   <div class="input-group">
+    <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder=" 🚗 गाडी नंबर / Enter Visitor's Vehicle Number">
+</div>
+  
     <select id="flatNumber" name="flatNumber" required placeholder="🏠 फ्लॅट नंबर निवडा " class="mandatory">
         <option value="" style="85%">फ्लॅट नंबर / Select Flat Number</option>
      <!-- A Wing -->
@@ -441,10 +464,11 @@ footer {
             <option value="C1006">C1006</option>
         </optgroup>
     </select>
+	
 	<br>
-    <textarea id="reason" name="reason" rows="2" Placeholder="कारण / Reason"></textarea>
+    <textarea style="display:none;" id="reason" name="reason" rows="2" Placeholder="कारण / Reason"></textarea>
 
-    <label>Visitor Type:</label>
+    
    <div class="radio-group">
     <label class="radio-relatives">
         <input type="radio" name="visitorType" value="relatives" checked>
@@ -617,7 +641,7 @@ var data = JSON.stringify({
         "Reason": $('#reason').val(),
         "Image": base64Image,
         "VisitorType": $('input[name="visitorType"]:checked').val(),
-        "LoginTime": currentDateTime,
+        "LoginTime": "2025-04-25T10:00:00Z",
         "LogoutTime": "2025-04-25T11:00:00Z",
         "ApprovalStatus": 0,
         "Extra1": "Extra data 1",
@@ -637,13 +661,52 @@ xhr.addEventListener("readystatechange", function() {
     }
 });
 
-xhr.open("POST", "http://http://cpsociety.co.in/Services/Visitor/VisitorInfo/create");
+xhr.open("POST", "http://localhost:22367/Services/Visitor/VisitorInfo/create");
 xhr.setRequestHeader("Content-Type", "application/json");
 // WARNING: Cookies will be stripped away by the browser before sending the request.
 
 xhr.send(data);
 });
 });
+
+
+ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Your browser does not support speech recognition. Please use Chrome or Edge.");
+    } else {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      let isListening = false;
+      const toggleBtn = document.getElementById("toggle");
+      const nameInput = document.getElementById("name");
+
+      recognition.onresult = (event) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+        nameInput.value = transcript.trim();
+      };
+
+      recognition.onerror = (e) => {
+        console.error("Speech recognition error:", e);
+      };
+
+      toggleBtn.onclick = () => {
+        if (!isListening) {
+          recognition.start();
+          toggleBtn.innerText = "🛑";
+        } else {
+          recognition.stop();
+          toggleBtn.innerText = "🎤";
+        }
+        isListening = !isListening;
+      };
+    }
 </script>
 </body>
 </html>
