@@ -628,19 +628,21 @@ const entrygate2s = document.getElementById('entrygate2');
         base64Image = base64Image.substring(0, 1615);
     }
 	const now = new Date();
+const proxyUrl = "https://your-proxy-url.com/"; // Replace with your own proxy if possible
+const targetUrl = "https://cpsociety.co.in/Services/Visitor/VisitorInfo/create";
 
-// Format the date and time together
-const currentDateTime = now.toLocaleString(); // e.g., "4/25/2025, 10:15:30 AM"
-var data = JSON.stringify({
+// Prepare the data payload
+const currentDateTime = new Date().toISOString(); // Correct format for ISO time
+const data = JSON.stringify({
     "Entity": {
-        "Name": $('#name').val(),
-        "MobileNumber": $('#phone').val(),
-        "VehicleNumber": $('#vehicleNumber').val(),
+        "Name": document.getElementById('name').value,
+        "MobileNumber": document.getElementById('phone').value,
+        "VehicleNumber": document.getElementById('vehicleNumber').value,
         "VisitorCount": 2,
-        "FlatNo": $('#flatNumber').val(),
-        "Reason": $('#reason').val(),
-        "Image": base64Image,
-        "VisitorType": $('input[name="visitorType"]:checked').val(),
+        "FlatNo": document.getElementById('flatNumber').value,
+        "Reason": document.getElementById('reason').value,
+        "Image": base64Image, // Ensure this is defined elsewhere
+        "VisitorType": document.querySelector('input[name="visitorType"]:checked').value,
         "LoginTime": "2025-04-25T10:00:00Z",
         "LogoutTime": "2025-04-25T11:00:00Z",
         "ApprovalStatus": 0,
@@ -652,15 +654,27 @@ var data = JSON.stringify({
     }
 });
 
-var proxyUrl = "https://cors-anywhere.herokuapp.com/";
-var targetUrl = "https://cpsociety.co.in/Services/Visitor/VisitorInfo/create";
-
-var xhr = new XMLHttpRequest();
-xhr.open("POST", proxyUrl + targetUrl);
-xhr.setRequestHeader("Content-Type", "application/json");
-xhr.send(data);
-});
-});
+// Make the POST request
+fetch(proxyUrl + targetUrl, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: data
+})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(result => {
+        console.log('Success:', result);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+       });
 
 
  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
