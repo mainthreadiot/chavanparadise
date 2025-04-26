@@ -594,25 +594,25 @@ document.addEventListener("DOMContentLoaded", function () {
         const compressedCanvas = resizeCanvas(canvas, 150, 150);
         base64Image = compressedCanvas.toDataURL('image/jpeg', 0.1);
 
-      const data = {
-    Entity: {
-        Name: "Priyanka Jadhav",
-        MobileNumber: "7350801470",
-        VehicleNumber: "zz",
-        VisitorCount: 2,
-        FlatNo: "A101",
-        Reason: "",
-        Image: "data:image/jpeg;base64,...", // Base64 image data
-        VisitorType: "relatives",
-        LoginTime: new Date().toISOString(),
-        LogoutTime: new Date(Date.now() + 3600000).toISOString(), // 1 hour later
-        ApprovalStatus: 0,
-        Extra1: "Extra data 1",
-        Extra2: "Extra data 2",
-        Extra3: "Extra data 3",
-        Extra4: "Extra data 4",
-        Extra5: "Extra data 5"
-    }
+      const data ={
+  "Entity": {
+    "Name": "Priyanka Jadhav",
+    "MobileNumber": "7350801470",
+    "VehicleNumber": "zz",
+    "VisitorCount": 2,
+    "FlatNo": "A101",
+    "Reason": "",
+    "Image": "data:image/jpeg;base64,...",
+    "VisitorType": 1, // Map "relatives" to a corresponding integer
+    "LoginTime": "2025-04-26T10:42:16.156Z",
+    "LogoutTime": "2025-04-26T11:42:16.156Z",
+    "ApprovalStatus": 0,
+    "Extra1": "Extra data 1",
+    "Extra2": "Extra data 2",
+    "Extra3": "Extra data 3",
+    "Extra4": "Extra data 4",
+    "Extra5": "Extra data 5"
+  }
 };
 
 fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
