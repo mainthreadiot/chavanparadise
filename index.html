@@ -531,18 +531,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Vehicle number validation
-    function validateVehicleNumber() {
-        const input = document.getElementById("vehicleNumber").value.trim();
-        const pattern = /^(\d{4}|[A-Z]{2} \d{2} [A-Z]{2} \d{4}|[A-Z]{2} \d{2} \d{4}|\d{4} [A-Z]{2} \d{4})?$/i;
-
-        if (!pattern.test(input)) {
-            document.getElementById("error").innerText = "Invalid vehicle number format!";
-            return false;
-        } else {
-            document.getElementById("error").innerText = "";
-            return true;
-        }
-    }
+   
 
     // Resize canvas
     function resizeCanvas(canvas, maxWidth, maxHeight) {
@@ -600,7 +589,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $('#visitorForm').on('submit', function (event) {
         event.preventDefault(); // Prevent default submission
 
-        if (!validateVehicleNumber()) return;
+        //if (!validateVehicleNumber()) return;
 
         const compressedCanvas = resizeCanvas(canvas, 150, 150);
         base64Image = compressedCanvas.toDataURL('image/jpeg', 0.1);
