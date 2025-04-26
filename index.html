@@ -518,201 +518,162 @@ footer {
         <p>&copy; 2024 Thread IoT. All rights reserved.</p>
     </footer>
 <script>
- function highlightSelection() {
-            let labels = document.querySelectorAll(".radio-group label");
-            labels.forEach(label => label.classList.remove("selected")); // Remove highlight from all labels
-
-            let selectedRadio = document.querySelector(".radio-group input:checked");
-            if (selectedRadio) {
-                selectedRadio.parentElement.classList.add("selected"); // Add highlight to selected
-            }
+document.addEventListener("DOMContentLoaded", function () {
+    // Highlight selected radio button
+    function highlightSelection() {
+        const labels = document.querySelectorAll(".radio-group label");
+        labels.forEach(label => label.classList.remove("selected"));
+        
+        const selectedRadio = document.querySelector(".radio-group input:checked");
+        if (selectedRadio) {
+            selectedRadio.parentElement.classList.add("selected");
         }
+    }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            let radios = document.querySelectorAll(".radio-group input");
-            radios.forEach(radio => {
-                radio.addEventListener("change", highlightSelection);
-            });
-
-            // Set initial selection
-            highlightSelection();
-        });
+    // Vehicle number validation
     function validateVehicleNumber() {
-            let input = document.getElementById("vehicleNumber").value.trim();
-            let pattern = /^(\d{4}|[A-Z]{2} \d{2} [A-Z]{2} \d{4}|[A-Z]{2} \d{2} \d{4}|\d{4} [A-Z]{2} \d{4})?$/i;
+        const input = document.getElementById("vehicleNumber").value.trim();
+        const pattern = /^(\d{4}|[A-Z]{2} \d{2} [A-Z]{2} \d{4}|[A-Z]{2} \d{2} \d{4}|\d{4} [A-Z]{2} \d{4})?$/i;
 
-            if (!pattern.test(input)) {
-                document.getElementById("error").innerText = "Invalid vehicle number format!";
-                return false;
-            } else {
-                document.getElementById("error").innerText = "";
-                return true;
-            }
+        if (!pattern.test(input)) {
+            document.getElementById("error").innerText = "Invalid vehicle number format!";
+            return false;
+        } else {
+            document.getElementById("error").innerText = "";
+            return true;
         }
-function resizeCanvas(canvas, maxWidth, maxHeight) {
-    let tempCanvas = document.createElement("canvas");
-    let ctx = tempCanvas.getContext("2d");
-
-    let width = canvas.width;
-    let height = canvas.height;
-
-    let scale = Math.min(maxWidth / width, maxHeight / height);
-    width *= scale;
-    height *= scale;
-
-    tempCanvas.width = width;
-    tempCanvas.height = height;
-    ctx.drawImage(canvas, 0, 0, width, height);
-
-    return tempCanvas;
-}
-    $(document).ready(function() {
-        $('#flatNumber').select2({
-            placeholder: "🏠 Select Flat Number",
-            allowClear: true,
-        });
-
-        $('#flatNumber').on('select2:select', function(e) {
-            const selectedFlat = e.params.data.text;
-            
-        });
-
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const photo = document.getElementById('photo');
-        const captureButton = document.getElementById('capture');
-		  const entrygate1s = document.getElementById('entrygate1');
-const entrygate2s = document.getElementById('entrygate2');
-       navigator.mediaDevices.getUserMedia({
-            video: { facingMode: { ideal: "environment" } } // Access back camera
-        })
-        .then(stream => {
-            video.srcObject = stream;
-        })
-        .catch(err => {
-            console.error("Error accessing camera: ", err);
-            alert("Camera access denied. Please check your permissions.");
-        });
-		/* navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-            video.srcObject = stream;
-        })
-        .catch(err => {
-            console.error("Error accessing camera: ", err);
-        });*/
-		const base64Image="";
-        captureButton.addEventListener('click', () => {
-            const context = canvas.getContext('2d');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight; // Adjust if needed
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const base64Image = canvas.toDataURL('image/png');
-            photo.setAttribute('src', base64Image);
-        });
-		entrygate1s.addEventListener('click', () => {
-                        
-   document.getElementById("name").value = "";
-    document.getElementById("phone").value = "";
-    document.getElementById("numVisitors").value = "";
-    document.getElementById("vehicleNumber").value = "";
-    document.getElementById("flatNumber").selectedIndex = 0; // Reset dropdown selection
-        });
-       $('#visitorForm').on('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    let compressedCanvas = resizeCanvas(canvas, 150, 150); // Resize canvas
-    let base64Image = compressedCanvas.toDataURL('image/jpeg', 0.1); // Compress to JPEG
-
-    // Trim base64 length if needed
-    if (base64Image.length > 1615) {
-        base64Image = base64Image.substring(0, 1615);
     }
-	const now = new Date();
-const proxyUrl = "https://your-proxy-url.com/"; // Replace with your own proxy if possible
-const targetUrl = "https://cpsociety.co.in/Services/Visitor/VisitorInfo/create";
 
-// Prepare the data payload
-const currentDateTime = new Date().toISOString(); // Correct format for ISO time
-const data = JSON.stringify({
-    "Entity": {
-        "Name": document.getElementById('name').value,
-        "MobileNumber": document.getElementById('phone').value,
-        "VehicleNumber": document.getElementById('vehicleNumber').value,
-        "VisitorCount": 2,
-        "FlatNo": document.getElementById('flatNumber').value,
-        "Reason": document.getElementById('reason').value,
-        "Image": base64Image, // Ensure this is defined elsewhere
-        "VisitorType": document.querySelector('input[name="visitorType"]:checked').value,
-        "LoginTime": "2025-04-25T10:00:00Z",
-        "LogoutTime": "2025-04-25T11:00:00Z",
-        "ApprovalStatus": 0,
-        "Extra1": "Extra data 1",
-        "Extra2": "Extra data 2",
-        "Extra3": "Extra data 3",
-        "Extra4": "Extra data 4",
-        "Extra5": "Extra data 5"
+    // Resize canvas
+    function resizeCanvas(canvas, maxWidth, maxHeight) {
+        const tempCanvas = document.createElement("canvas");
+        const ctx = tempCanvas.getContext("2d");
+
+        let width = canvas.width;
+        let height = canvas.height;
+
+        const scale = Math.min(maxWidth / width, maxHeight / height);
+        width *= scale;
+        height *= scale;
+
+        tempCanvas.width = width;
+        tempCanvas.height = height;
+        ctx.drawImage(canvas, 0, 0, width, height);
+
+        return tempCanvas;
     }
-});
 
-// Make the POST request
-fetch(proxyUrl + targetUrl, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: data
-})
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(result => {
-        console.log('Success:', result);
-    })
-    .catch(error => {
-        console.error('Error:', error);
+    // Initialize Select2 for dropdown
+    $('#flatNumber').select2({
+        placeholder: "🏠 Select Flat Number",
+        allowClear: true,
     });
 
+    // Capture image from camera
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const photo = document.getElementById('photo');
+    const captureButton = document.getElementById('capture');
+    let base64Image = "";
 
- const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: "environment" } }
+    })
+    .then(stream => {
+        video.srcObject = stream;
+    })
+    .catch(err => {
+        console.error("Error accessing camera:", err);
+        alert("Camera access denied. Please check your permissions.");
+    });
 
-    if (!SpeechRecognition) {
-      alert("Your browser does not support speech recognition. Please use Chrome or Edge.");
+    captureButton.addEventListener('click', () => {
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        base64Image = canvas.toDataURL('image/png');
+        photo.setAttribute('src', base64Image);
+    });
+
+    // Form submission
+    $('#visitorForm').on('submit', function (event) {
+        event.preventDefault(); // Prevent default submission
+
+        if (!validateVehicleNumber()) return;
+
+        const compressedCanvas = resizeCanvas(canvas, 150, 150);
+        base64Image = compressedCanvas.toDataURL('image/jpeg', 0.1);
+
+        const data = JSON.stringify({
+            "Entity": {
+                "Name": document.getElementById('name').value,
+                "MobileNumber": document.getElementById('phone').value,
+                "VehicleNumber": document.getElementById('vehicleNumber').value,
+                "VisitorCount": 2,
+                "FlatNo": document.getElementById('flatNumber').value,
+                "Reason": document.getElementById('reason').value,
+                "Image": base64Image,
+                "VisitorType": document.querySelector('input[name="visitorType"]:checked').value,
+                "LoginTime": new Date().toISOString(),
+                "LogoutTime": new Date(Date.now() + 3600000).toISOString(),
+                "ApprovalStatus": 0,
+                "Extra1": "Extra data 1",
+                "Extra2": "Extra data 2",
+                "Extra3": "Extra data 3",
+                "Extra4": "Extra data 4",
+                "Extra5": "Extra data 5"
+            }
+        });
+
+        fetch("https://your-proxy-url.com/https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: data
+        })
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+            return response.json();
+        })
+        .then(result => console.log("Success:", result))
+        .catch(error => console.error("Error:", error));
+    });
+
+    // Speech recognition
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
+
+        const toggleBtn = document.getElementById("toggle");
+        const nameInput = document.getElementById("name");
+        let isListening = false;
+
+        recognition.onresult = (event) => {
+            let transcript = Array.from(event.results)
+                .slice(event.resultIndex)
+                .map(result => result[0].transcript)
+                .join('');
+            nameInput.value = transcript.trim();
+        };
+
+        toggleBtn.onclick = () => {
+            if (isListening) {
+                recognition.stop();
+                toggleBtn.innerText = "🎤";
+            } else {
+                recognition.start();
+                toggleBtn.innerText = "🛑";
+            }
+            isListening = !isListening;
+        };
     } else {
-      const recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = 'en-US';
-
-      let isListening = false;
-      const toggleBtn = document.getElementById("toggle");
-      const nameInput = document.getElementById("name");
-
-      recognition.onresult = (event) => {
-        let transcript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          transcript += event.results[i][0].transcript;
-        }
-        nameInput.value = transcript.trim();
-      };
-
-      recognition.onerror = (e) => {
-        console.error("Speech recognition error:", e);
-      };
-
-      toggleBtn.onclick = () => {
-        if (!isListening) {
-          recognition.start();
-          toggleBtn.innerText = "🛑";
-        } else {
-          recognition.stop();
-          toggleBtn.innerText = "🎤";
-        }
-        isListening = !isListening;
-      };
+        alert("Speech recognition not supported. Use Chrome or Edge.");
     }
+});
 </script>
+
 </body>
 </html>
