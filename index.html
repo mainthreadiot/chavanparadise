@@ -594,28 +594,28 @@ document.addEventListener("DOMContentLoaded", function () {
         const compressedCanvas = resizeCanvas(canvas, 150, 150);
         base64Image = compressedCanvas.toDataURL('image/jpeg', 0.1);
 
-        const data = JSON.stringify({
-            "Entity": {
-                "Name": document.getElementById('name').value,
-                "MobileNumber": document.getElementById('phone').value,
-                "VehicleNumber": document.getElementById('vehicleNumber').value,
-                "VisitorCount": 2,
-                "FlatNo": document.getElementById('flatNumber').value,
-                "Reason": document.getElementById('reason').value,
-                "Image": base64Image,
-                "VisitorType": document.querySelector('input[name="visitorType"]:checked').value,
-                "LoginTime": new Date().toISOString(),
-                "LogoutTime": new Date(Date.now() + 3600000).toISOString(),
-                "ApprovalStatus": 0,
-                "Extra1": "Extra data 1",
-                "Extra2": "Extra data 2",
-                "Extra3": "Extra data 3",
-                "Extra4": "Extra data 4",
-                "Extra5": "Extra data 5"
-            }
-        });
+      const data = {
+    Entity: {
+        Name: "Priyanka Jadhav",
+        MobileNumber: "7350801470",
+        VehicleNumber: "zz",
+        VisitorCount: 2,
+        FlatNo: "A101",
+        Reason: "",
+        Image: "data:image/jpeg;base64,...", // Base64 image data
+        VisitorType: "relatives",
+        LoginTime: new Date().toISOString(),
+        LogoutTime: new Date(Date.now() + 3600000).toISOString(), // 1 hour later
+        ApprovalStatus: 0,
+        Extra1: "Extra data 1",
+        Extra2: "Extra data 2",
+        Extra3: "Extra data 3",
+        Extra4: "Extra data 4",
+        Extra5: "Extra data 5"
+    }
+};
 
-       fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
+fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
@@ -623,14 +623,11 @@ document.addEventListener("DOMContentLoaded", function () {
     body: JSON.stringify(data)
 })
 .then(response => {
-    if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
     return response.json();
 })
 .then(result => console.log(result))
 .catch(error => console.error(error));
-
 
 
 	    
