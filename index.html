@@ -324,6 +324,18 @@ footer {
         <p>&copy; 2024 Thread IoT. All rights reserved.</p>
     </footer>
 <script>
+	 const vehicleInputs = document.querySelectorAll('.vehicle-input');
+
+    vehicleInputs.forEach((input, index) => {
+      input.addEventListener('input', () => {
+        if (input.value.length === parseInt(input.maxLength, 10)) {
+          const nextInput = vehicleInputs[index + 1];
+          if (nextInput) {
+            nextInput.focus();
+          }
+        }
+      });
+    });
 document.addEventListener("DOMContentLoaded", function () {
     // Highlight selected radio button
     function highlightSelection() {
