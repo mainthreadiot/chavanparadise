@@ -261,7 +261,7 @@ footer {
     <input type="number" id="numVisitors" name="numVisitors" Placeholder=" ? संख्या/ Enter Visitor's Count" required min="1" class="mandatory">
     </div>
 	   <div class="input-group">
-    <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder=" 🚗 गाडी नंबर / Enter Visitor's Vehicle Number">
+    <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder=" 🚗 गाडी नंबर / Enter Visitor's Vehicle Number" style="display:none;">
     <input type="text" id="vehicle1" maxlenght=2 minlenght=2 name="vehicle1" Placeholde="MH"/><input type="number" id="vehicle2"  maxlenght=2 minlenght=2 name="vehicle2" Placeholde="12"/><input type="text" id="vehicle3" name="vehicle3" Placeholde="XX"/><input type="text" maxlenght=4 minlenght=4 id="vehicle4" name="vehicle4" Placeholde="XXXX"/>
 </div>
   <select id="wingNumber">
@@ -358,10 +358,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Initialize Select2 for dropdown
-    $('#flatNumber').select2({
-        placeholder: "🏠 Select Flat Number",
-        allowClear: true,
-    });
+    
 
     // Capture image from camera
     const video = document.getElementById('video');
@@ -406,7 +403,7 @@ const currentDateTime = now.toLocaleString(); // e.g., "4/25/2025, 10:15:30 AM"
   "Entity": {
     "Name": $('#name').val(),
     "MobileNumber": $('#phone').val(),
-    "VehicleNumber": $('#vehicleNumber').val(),
+    "VehicleNumber": $('#vehicle1').val()+""+$('#vehicle2').val()+" "+$('#vehicle3').val() +" "+$('#vehicle4').val(),
     "VisitorCount": document.getElementById("numVisitors").value,
     "FlatNo": $('#wingNumber').val() +"_"+$('#flatNumber').val(),
     "Reason": "",
@@ -434,7 +431,7 @@ fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
     if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
     return response.json();
 })
-.then(result => console.log(result))
+.then(result => alert("Visitor Enntry Added"))
 .catch(error => console.error(error));
 
 
