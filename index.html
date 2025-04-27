@@ -409,10 +409,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const compressedCanvas = resizeCanvas(canvas, 150, 150);
         base64Image = compressedCanvas.toDataURL('image/jpeg', 0.1);
-	const now = new Date();
-
-// Format the date and time together
-const currentDateTime = now.toLocaleString(); // e.g., "4/25/2025, 10:15:30 AM"
+	
       const data ={
   "Entity": {
     "Name": $('#name').val(),
@@ -423,8 +420,8 @@ const currentDateTime = now.toLocaleString(); // e.g., "4/25/2025, 10:15:30 AM"
     "Reason": "",
     "Image": base64Image,
     "VisitorType": 1, // Map "relatives" to a corresponding integer
-    "LoginTime": currentDateTime,
-    "LogoutTime": "2025-04-26T11:42:16.156Z",
+    "LoginTime": "2025-04-26",
+    "LogoutTime": "2025-04-26",
     "ApprovalStatus": 0,
     "Extra1": "Extra data 1",
     "Extra2": "Extra data 2",
