@@ -590,8 +590,21 @@ fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
     if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
     return response.json();
 })
-.then(result => showToast("Visitor Entry Added"))
-.catch(error => showToast(error));
+.then(result => {
+    showToast("Visitor Entry Added");
+    
+    // Clear form fields
+    $('#name').val('');
+    $('#phone').val('');
+    $('#vehicle1').val('');
+    $('#vehicle2').val('');
+    $('#vehicle3').val('');
+    $('#vehicle4').val('');
+    document.getElementById('canvas').value = '';
+})
+.catch(error => {
+    showToast(`Error: ${error.message}`);
+});
 
 
 	    
