@@ -236,7 +236,6 @@ footer {
 </head>
 <body>
 
-
 <h3>CHAVAN PARADISE PHASE 1</h3>
 <h5> Survey No 28 / 26 / 09, Jijamata Chowk Ambeon Pathar Pune, 46</h5>
 
@@ -285,10 +284,20 @@ footer {
 	<b>  Vehicle Number </b>
 	   <div class="input-group">
     <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder=" " style="display:none;">
-    <input type="text" id="vehicle1" maxlength=2 minlength=2 name="vehicle1" Placeholder="MH" class="vehicle-input"/>
+    <input type="text" id="vehicle1" maxlength=2 minlength=2 name="vehicle1"  style="text-transform: uppercase;"  Placeholder="MH" class="vehicle-input"/>
     &nbsp;&nbsp;<input type="number" id="vehicle2"  maxlength=2 minlength=2 name="vehicle2" Placeholder="12" class="vehicle-input"/>
-    &nbsp;&nbsp;<input type="text" id="vehicle3" maxlength=2 minlength=2 class="vehicle-input" name="vehicle3" Placeholder="XX"/>
-     &nbsp;&nbsp;<input type="number" maxlength=4 minlength=4 class="vehicle-input" id="vehicle4" name="vehicle4" Placeholder="XXXX"/>
+    &nbsp;&nbsp;<input type="text" id="vehicle3" maxlength=2 minlength=2   style="text-transform: uppercase;" class="vehicle-input" name="vehicle3" Placeholder="XX"/>
+     &nbsp;&nbsp;<input 
+  type="text" 
+  id="vehicle4" 
+  name="vehicle4" 
+  maxlength="4" 
+  minlength="4" 
+  pattern="\d{4}" 
+  placeholder="XXXX" 
+  required 
+  class="vehicle-input"
+>
 </div><hr>
 <b>  Flat Number </b>
 <div class="input-group">
@@ -298,7 +307,70 @@ footer {
 	  <option>B</option>
 	  <option>C</option>
   </select></td><td>
-  <input type="number" id="flatNumber" maxlength="4" minlength=3 name="phone" Placeholder="📱 Flat Number" required class="mandatory"  width="50%"></div></td></tr></table></div>
+  <select id="flatNumber" style="height: 38px;"  width="50%" required class="mandatory" >
+	  <option>101</option>
+	  <option>102</option>
+	  <option>103</option>
+	  <option>104</option>
+	  <option>105</option>
+	  <option>106</option>
+	  <option>201</option>
+	  <option>202</option>
+	  <option>203</option>
+	  <option>204</option>
+	  <option>205</option>
+	  <option>206</option>
+	  <option>301</option>
+	  <option>302</option>
+	  <option>303</option>
+	  <option>304</option>
+	  <option>305</option>
+	  <option>306</option>
+	  <option>401</option>
+	  <option>402</option>
+	  <option>403</option>
+	  <option>404</option>
+	  <option>405</option>
+	  <option>406</option>
+	  <option>501</option>
+	  <option>502</option>
+	  <option>503</option>
+	  <option>504</option>
+	  <option>505</option>
+	  <option>506</option>
+	  <option>601</option>
+	  <option>602</option>
+	  <option>603</option>
+	  <option>604</option>
+	  <option>605</option>
+	  <option>606</option>
+	  <option>701</option>
+	  <option>702</option>
+	  <option>703</option>
+	  <option>704</option>
+	  <option>705</option>
+	  <option>706</option>
+	  <option>801</option>
+	  <option>802</option>
+	  <option>803</option>
+	  <option>804</option>
+	  <option>805</option>
+	  <option>806</option>
+	  <option>901</option>
+	  <option>902</option>
+	  <option>903</option>
+	  <option>904</option>
+	  <option>905</option>
+	  <option>906</option>
+	  <option>1001</option>
+	  <option>1002</option>
+	  <option>1003</option>
+	  <option>1004</option>
+	  <option>1005</option>
+	  <option>1006</option>
+	  
+  </select></td><td>
+ <!-- <input type="number" id="flatNumber" maxlength="4" pattern="\d{4}" minlength=3 name="phone" Placeholder="📱 Flat Number" >--></div></td></tr></table></div>
   
     <textarea style="display:none;" id="reason" name="reason" rows="2" Placeholder="कारण / Reason"></textarea>
 
@@ -330,6 +402,7 @@ footer {
         <i class="fa fa-circle"></i>-->
     </label>
 </div>
+
     <table align="center" style="max-height:100px;">
         <tr style="max-height:100px;">
             <td style="max-height:100px;">
