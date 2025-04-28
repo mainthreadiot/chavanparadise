@@ -235,7 +235,19 @@ footer {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 </head>
 <body>
-
+<div id="toast" style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: Green;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 2000;
+    font-size: 30px;">
+</div>
 <h3>CHAVAN PARADISE PHASE 1</h3>
 <h5> Survey No 28 / 26 / 09, Jijamata Chowk Ambeon Pathar Pune, 46</h5>
 
@@ -249,7 +261,7 @@ footer {
     </div>
 <button id="entrygate1">🚪 Add Visitor 🚪</button>
 
-	<hr> <b>  Visitor Name </b>
+	<hr> <b>  Visitor Name<font color=red>*  <button id="toggle" title="Speak">🎙️</button></font> </b>
     <div class="input-group">
     <input
       type="text"
@@ -260,9 +272,9 @@ footer {
       required
       class="mandatory"
     />
-    <button id="toggle" title="Speak">🎙️</button>
+  
   </div><hr>
-  <b>  Contact Number </b>
+  <b>  Contact Number <font color=red>*</font></b>
    <div class="input-group">
     <input 
   type="tel" 
@@ -295,19 +307,18 @@ footer {
   minlength="4" 
   pattern="\d{4}" 
   placeholder="XXXX" 
-  required 
   class="vehicle-input"
 >
 </div><hr>
-<b>  Flat Number </b>
+<b>  Flat Number <font color=red>*</font>	</b>
 <div class="input-group">
-	<table width="100%"><tr><td width="120">
+	<table width="100%"><tr><td width="30%">
   <select id="wingNumber" style="height: 38px;">
 	  <option>A</option>
 	  <option>B</option>
 	  <option>C</option>
-  </select></td><td>
-  <select id="flatNumber" style="height: 38px;"  width="50%" required class="mandatory" >
+  </select></td><td  width="80%">
+  <select id="flatNumber" style="height: 38px;"  width="100%" required class="mandatory" >
 	  <option>101</option>
 	  <option>102</option>
 	  <option>103</option>
@@ -374,7 +385,7 @@ footer {
   
     <textarea style="display:none;" id="reason" name="reason" rows="2" Placeholder="कारण / Reason"></textarea>
 
-    <b>  Visitor Type </b>
+    <b>  Visitor Type <font color=red>*</font></b>
    <div class="radio-group">
     <label class="radio-relatives">
         <input type="radio" name="visitorType" value="relatives" checked>
@@ -424,6 +435,44 @@ footer {
         <p>&copy; 2024 Thread IoT. All rights reserved.</p>
     </footer>
 <script>
+var _contactNumber;
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.style.display = 'block';
+
+  // Automatically hide the toast after 3 seconds
+  setTimeout(() => {
+    toast.style.display = 'none';
+  }, 3000);
+}
+document.getElementById('flatNumber').addEventListener('input', function () {
+  let value = this.value;
+
+  // Remove anything that's not a digit
+  this.value = value.replace(/[^0-9]/g, '');
+
+  // Ensure the value is no longer than 4 digits
+  if (this.value.length > 4) {
+    this.value = this.value.slice(0, 4);
+  }
+
+  // If value is empty, return (no validation yet)
+  if (this.value === '') return;
+
+  // Only validate once the value is at least 3 digits
+  if (this.value.length >= 3) {
+    // Validate range for 101 to 1010
+    if (parseInt(this.value) < 101 || parseInt(this.value) > 1010) {
+      showToast('Please enter a flat number between 101 and 1010.');
+      this.value = ''; // Clear the input if out of range
+    }
+  }
+});
+document.getElementById('phone').addEventListener('input', function (event) {
+  // Remove any non-numeric characters
+  this.value = this.value.replace(/[^0-9]/g, '');
+});
 	 const vehicleInputs = document.querySelectorAll('.vehicle-input');
 
     vehicleInputs.forEach((input, index) => {
@@ -541,8 +590,8 @@ fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
     if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
     return response.json();
 })
-.then(result => alert("Visitor Enntry Added"))
-.catch(error => console.error(error));
+.then(result => showToast("Visitor Entry Added"))
+.catch(error => showToast(error));
 
 
 	    
@@ -579,7 +628,7 @@ fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
             isListening = !isListening;
         };
     } else {
-        alert("Speech recognition not supported. Use Chrome or Edge.");
+        showToast("Speech recognition not supported. Use Chrome or Edge.");
     }
 });
 </script>
