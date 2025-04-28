@@ -236,6 +236,7 @@ footer {
 </head>
 <body>
 
+
 <h3>CHAVAN PARADISE PHASE 1</h3>
 <h5> Survey No 28 / 26 / 09, Jijamata Chowk Ambeon Pathar Pune, 46</h5>
 
@@ -249,32 +250,48 @@ footer {
     </div>
 <button id="entrygate1">🚪 Add Visitor 🚪</button>
 
-	<hr> <b>  Visitor Info </b>
+	<hr> <b>  Visitor Name </b>
     <div class="input-group">
     <input
       type="text"
       id="name"
       name="name"
-      placeholder="🚶 नाव टाका / Enter Visitor's Name / नाम डाले"
+	  maxlength="40" 
+      placeholder=""
       required
       class="mandatory"
     />
     <button id="toggle" title="Speak">🎙️</button>
   </div><hr>
+  <b>  Contact Number </b>
    <div class="input-group">
-    <input type="tel" id="phone" maxlength="10" minlength=10 name="phone" Placeholder="📱 मोबाइल नंबर / Enter Visitor's Contact" required class="mandatory">
+    <input 
+  type="tel" 
+  id="phone" 
+  name="phone" 
+  maxlength="10" 
+  minlength="10" 
+  pattern="[0-9]{10}" 
+  placeholder="" 
+  required 
+  class="mandatory"
+>
     </div>
 	<hr>
+	
 	   <div class="input-group" style="display:none;">
     <input type="number" id="numVisitors" name="numVisitors" value="1"  Placeholder=" ? संख्या/ Enter Visitor's Count" required min="1" class="mandatory">
     </div>
+	<b>  Vehicle Number </b>
 	   <div class="input-group">
-    <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder=" 🚗 गाडी नंबर / Enter Visitor's Vehicle Number" style="display:none;">
+    <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder=" " style="display:none;">
     <input type="text" id="vehicle1" maxlength=2 minlength=2 name="vehicle1" Placeholder="MH" class="vehicle-input"/>
     &nbsp;&nbsp;<input type="number" id="vehicle2"  maxlength=2 minlength=2 name="vehicle2" Placeholder="12" class="vehicle-input"/>
     &nbsp;&nbsp;<input type="text" id="vehicle3" maxlength=2 minlength=2 class="vehicle-input" name="vehicle3" Placeholder="XX"/>
      &nbsp;&nbsp;<input type="number" maxlength=4 minlength=4 class="vehicle-input" id="vehicle4" name="vehicle4" Placeholder="XXXX"/>
-</div><hr><div class="input-group">
+</div><hr>
+<b>  Flat Number </b>
+<div class="input-group">
 	<table width="100%"><tr><td width="120">
   <select id="wingNumber" style="height: 38px;">
 	  <option>A</option>
@@ -282,11 +299,10 @@ footer {
 	  <option>C</option>
   </select></td><td>
   <input type="number" id="flatNumber" maxlength="4" minlength=3 name="phone" Placeholder="📱 Flat Number" required class="mandatory"  width="50%"></div></td></tr></table></div>
-  <hr>
-	<br>
+  
     <textarea style="display:none;" id="reason" name="reason" rows="2" Placeholder="कारण / Reason"></textarea>
 
-    
+    <b>  Visitor Type </b>
    <div class="radio-group">
     <label class="radio-relatives">
         <input type="radio" name="visitorType" value="relatives" checked>
@@ -314,7 +330,6 @@ footer {
         <i class="fa fa-circle"></i>-->
     </label>
 </div>
-
     <table align="center" style="max-height:100px;">
         <tr style="max-height:100px;">
             <td style="max-height:100px;">
