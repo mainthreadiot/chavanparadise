@@ -11,7 +11,7 @@
     margin: 0;
 	height:100%;
     padding: 2px;
-    border: 10px solid #800000; /* Burgundy border */
+    //border: 10px solid #800000; /* Burgundy border */
     box-sizing: border-box;
 	background-image : url('https://lh3.googleusercontent.com/p/AF1QipPZV0QdjODym-RluDo_EAFdw9xfep2EBU5kJDOx=s680-w680-h510-rw');
     border-radius: 20px; /* Rounds the corners of the border */
@@ -28,13 +28,24 @@ footer {
     font-size: 12px; /* Smaller font size */
     border-top: 1px solid #800000; /* Optional: border for separation */
 }
+#toggle {
+  background-color: transparent; /* Makes the background transparent */
+  border: none; /* Removes the border */
+  padding: 0; /* Removes extra padding */
+  cursor: pointer; /* Adds a pointer cursor */
+}
+
+#toggle .icon-class {
+  font-size: 1.5em; /* Adjusts icon size */
+  color: #000; /* Icon color */
+}
        h3 {
     text-align: center;
     color: white; /* Highlighted building name color */
     margin-bottom: 0px;
     background-color: #181818;
     text-transform: uppercase; /* Capital letters */
-    border-radius: 10px; /* Adjust the value for more or less rounding */
+   // border-radius: 10px; /* Adjust the value for more or less rounding */
     padding: 10px; /* Optional: Adds space inside the element */
 }
         h5 {
@@ -49,7 +60,7 @@ footer {
             margin: auto;
             padding: 10px;
             background: #fff;
-            border-radius: 8px;
+            //border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
@@ -75,13 +86,12 @@ footer {
             width: 95%;
             padding: 6px;
             margin-bottom: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            
             font-size: 12px;
         }
 		select {
             width: 98%;
-            border-radius: 4px;
+           // border-radius: 4px;
             font-size: 12px;
         }
 		
@@ -89,8 +99,7 @@ footer {
             padding: 8px;
             background-color: #2e8b57;
             color: white;
-            border: none;
-            border-radius: 5px;
+           
             cursor: pointer;
             font-size: 14px;
             transition: background-color 0.3s;
@@ -112,7 +121,7 @@ footer {
             align-items: center;
             justify-content: center;
             border: 2px solid #ccc;
-            border-radius: 5px;
+           
             padding: 5px;
             cursor: pointer;
             font-size: 12px;
@@ -129,7 +138,7 @@ footer {
         }
          .radio-group {
             margin: 10px 0;
-			 border-radius: 50%;
+			 
         }
         .radio-group label {
             display: inline-block;
@@ -141,14 +150,14 @@ footer {
 		.radio-group input:checked + label {
    background-color: gray /* Burgundy color for highlight */
     color: white; /* Change text color to white for better contrast */
-    border: 2px solid #fffff; /* Optional: white border around selected label */
+    
 }
         .radio-group input + span {
             display: inline-block;
             width: 20px;
             height: 20px;
 			background-color: gray
-            border-radius: 100%;
+           
             margin-right: 5px;
             cursor: pointer;
         }
@@ -166,7 +175,7 @@ footer {
         .radio-delivery span { background-color: #9C27B0; } /* Purple */
         .radio-other span { background-color: #FF5722; } /* Red */
         .radio-group input:checked + span {
-            border: 2px solid #333; /* Border for checked state */
+            
 			background-color: black;
         }
         #video {
@@ -187,11 +196,11 @@ footer {
 		 
 		}
 		.mandatory {
-        border: 2px solid #651C32;
+        //border: 2px solid #651C32;
     }
 
     .mandatory:focus {
-        border-color: #651C32;
+        //border-color: #651C32;
     }
 
     .error {
@@ -206,7 +215,7 @@ footer {
 	.input-group {
             display: flex;
             align-items: center;
-            gap: 8px; /* space between input and button */
+            //gap: 8px; /* space between input and button */
         }
         .input-group input {
             flex: 1;
@@ -238,7 +247,7 @@ footer {
         <!--<input type="radio" id="gate2" name="gate" value="gate2">
         <label class="gate2" for="gate2">Gate No 2-->
     </div>
-<button id="entrygate1">🚪 Add New Visitor | Gate 1🚪</button>
+<button id="entrygate1">🚪 Add Visitor 🚪</button>
 
 	<hr> <b>  Visitor Info </b>
     <div class="input-group">
@@ -251,27 +260,29 @@ footer {
       class="mandatory"
     />
     <button id="toggle" title="Speak">🎙️</button>
-  </div>
+  </div><hr>
    <div class="input-group">
     <input type="tel" id="phone" maxlength="10" minlength=10 name="phone" Placeholder="📱 मोबाइल नंबर / Enter Visitor's Contact" required class="mandatory">
     </div>
-	   <div class="input-group">
-    <input type="number" id="numVisitors" name="numVisitors" Placeholder=" ? संख्या/ Enter Visitor's Count" required min="1" class="mandatory">
+	<hr>
+	   <div class="input-group" style="display:none;">
+    <input type="number" id="numVisitors" name="numVisitors" value="1"  Placeholder=" ? संख्या/ Enter Visitor's Count" required min="1" class="mandatory">
     </div>
 	   <div class="input-group">
     <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder=" 🚗 गाडी नंबर / Enter Visitor's Vehicle Number" style="display:none;">
     <input type="text" id="vehicle1" maxlength=2 minlength=2 name="vehicle1" Placeholder="MH" class="vehicle-input"/>
-    <input type="number" id="vehicle2"  maxlength=2 minlength=2 name="vehicle2" Placeholder="12" class="vehicle-input"/>
-    <input type="text" id="vehicle3" maxlength=2 minlength=2 class="vehicle-input" name="vehicle3" Placeholder="XX"/>
-     <input type="number" maxlength=4 minlength=4 class="vehicle-input" id="vehicle4" name="vehicle4" Placeholder="XXXX"/>
-</div><div class="input-group">
-	<table width="100%"><tr><td>
-  <select id="wingNumber" style="height: 35px;">
+    &nbsp;&nbsp;<input type="number" id="vehicle2"  maxlength=2 minlength=2 name="vehicle2" Placeholder="12" class="vehicle-input"/>
+    &nbsp;&nbsp;<input type="text" id="vehicle3" maxlength=2 minlength=2 class="vehicle-input" name="vehicle3" Placeholder="XX"/>
+     &nbsp;&nbsp;<input type="number" maxlength=4 minlength=4 class="vehicle-input" id="vehicle4" name="vehicle4" Placeholder="XXXX"/>
+</div><hr><div class="input-group">
+	<table width="100%"><tr><td width="120">
+  <select id="wingNumber" style="height: 38px;">
 	  <option>A</option>
 	  <option>B</option>
 	  <option>C</option>
   </select></td><td>
   <input type="number" id="flatNumber" maxlength="4" minlength=3 name="phone" Placeholder="📱 Flat Number" required class="mandatory"  width="50%"></div></td></tr></table></div>
+  <hr>
 	<br>
     <textarea style="display:none;" id="reason" name="reason" rows="2" Placeholder="कारण / Reason"></textarea>
 
@@ -285,7 +296,7 @@ footer {
     <label class="radio-housekeeping"> 
         <input type="radio" name="visitorType" value="housekeeping" required>
         <span></span> 
-        <i class="fas fa-broom" style="font-size:24px;color:#4CAF50;"></i> <b><font size=4px; color="#2196F3;">🧹🪣</font></b>
+        <i class="fas fa-broom" style="font-size:24px;color:#4CAF50;"></i> <b><font size=4px; color="#2196F3;">🪣</font></b>
     </label>
     <label class="radio-delivery">
         <input type="radio" name="visitorType" value="delivery">
