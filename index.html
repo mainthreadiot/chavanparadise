@@ -6,248 +6,739 @@
     <title>Visitor Management - CHAVAN PARADISE</title>
     <style>
        body {
-    font-family: 'Arial', sans-serif;
-    background-color: #2D3436;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #2D3436 url('https://lh3.googleusercontent.com/p/AF1QipPZV0QdjODym-RluDo_EAFdw9xfep2EBU5kJDOx=s680-w680-h510-rw') no-repeat center center fixed;
+    background-size: cover;
     margin: 0;
-	height:100%;
-    padding: 2px;
-    //border: 10px solid #800000; /* Burgundy border */
+    min-height: 100vh;
+    padding: 0;
     box-sizing: border-box;
-	background-image : url('https://lh3.googleusercontent.com/p/AF1QipPZV0QdjODym-RluDo_EAFdw9xfep2EBU5kJDOx=s680-w680-h510-rw');
-    border-radius: 20px; /* Rounds the corners of the border */
-    overflow: auto; /* Ensures corners are properly rounded */
+    border-radius: 20px;
+    overflow-x: hidden;
 }
+
 footer {
     text-align: center;
-    background-color: #181818; /* Same as your header background */
+    background-color: rgba(24, 24, 24, 0.9);
     color: white;
-    padding: 5px 0; /* Thin padding for a minimal look */
-    position: relative; /* Allows positioning if needed */
-    bottom: 0; /* Sticks to the bottom */
-    width: 100%; /* Full width */
-    font-size: 12px; /* Smaller font size */
-    border-top: 1px solid #800000; /* Optional: border for separation */
+    padding: 8px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 12px;
+    border-top: 1px solid #800000;
+    backdrop-filter: blur(10px);
 }
+
 #toggle {
-  background-color: transparent; /* Makes the background transparent */
-  border: none; /* Removes the border */
-  padding: 0; /* Removes extra padding */
-  cursor: pointer; /* Adds a pointer cursor */
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+#toggle:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 #toggle .icon-class {
-  font-size: 1.5em; /* Adjusts icon size */
-  color: #000; /* Icon color */
+    font-size: 1.5em;
+    color: #000;
 }
-       h3 {
+
+h3 {
     text-align: center;
-    color: white; /* Highlighted building name color */
-    margin-bottom: 0px;
-    background-color: #181818;
-    text-transform: uppercase; /* Capital letters */
-   // border-radius: 10px; /* Adjust the value for more or less rounding */
-    padding: 10px; /* Optional: Adds space inside the element */
+    color: white;
+    margin: 0;
+    background: linear-gradient(135deg, #181818 0%, #2D3436 100%);
+    text-transform: uppercase;
+    padding: 16px 20px;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    font-weight: 700;
 }
-        h5 {
-            text-align: center;
-			color:white;            
-            font-weight: bold;
-            margin-top: 0;
-            font-size: 10px;
-        }
-        form {
-            max-width: 100%;
-            margin: auto;
-            padding: 10px;
-            background: #fff;
-            //border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-        }
-		
-		.select2-container .select2-selection--single {
-			height: 30px !important;  /* Adjust height as needed */
-			line-height: 30px !important;
-		}
 
-		.select2-container--default .select2-selection--single .select2-selection__rendered {
-			line-height: 30px !important;
-		}
-		
-	
-		
-        label {
-            margin: 5px 0;
-            font-weight: bold;
-            font-size: 12px;
-        }
-        input, textarea,select,option {
-            width: 95%;
-            padding: 6px;
-            margin-bottom: 5px;
-            
-            font-size: 12px;
-        }
-		select {
-            width: 98%;
-           // border-radius: 4px;
-            font-size: 12px;
-        }
-		
-        button {
-            padding: 8px;
-            background-color: #2e8b57;
-            color: white;
-           
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-        button:hover {
-            background-color: #26734d;
-			color:red;
-        }
-        .radio-group {
-            display: flex;
-            justify-content: space-between;
-            margin: 5px 0;
-        }
-        .radio-group label {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #ccc;
-           
-            padding: 5px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
+h3 a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s;
+}
 
-        .gate1 {
-            background-color: black;
-			 color: white;
-        }
-        .gate2 {
-            background-color: black;
-            color: white;
-        }
-         .radio-group {
-            margin: 10px 0;
-			 
-        }
-        .radio-group label {
-            display: inline-block;
-            margin-right: 10px;
-        }
-        .radio-group input {
-            display: none; /* Hide default radio buttons */
-        }
-		.radio-group input:checked + label {
-   background-color: gray /* Burgundy color for highlight */
-    color: white; /* Change text color to white for better contrast */
+h3 a:hover {
+    color: #2e8b57;
+}
+
+h5 {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    margin: 8px 0 12px 0;
+    font-size: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 8px 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+form {
+    max-width: 380px;
+    width: 95%;
+    margin: 8px auto;
+    padding: 12px 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    background-image: url('https://lh3.googleusercontent.com/p/AF1QipPZV0QdjODym-RluDo_EAFdw9xfep2EBU5kJDOx=s680-w680-h510-rw');
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
     
+    border-radius: 12px 12px 0 0;
+    z-index: 1;
 }
-        .radio-group input + span {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-			background-color: gray
-           
-            margin-right: 5px;
-            cursor: pointer;
-        }
-		.radio-group :hover {
-    background-color: gray;
-	color:black;
+
+form > * {
+    position: relative;
+    z-index: 2;
 }
-.radio-relatives
-{
- background-color: #black;
+
+.select2-container .select2-selection--single {
+    height: 36px !important;
+    line-height: 36px !important;
+    border-radius: 6px !important;
 }
-        .radio-housekeeping span { background-color: #ff9800; } /* Green */
-        .radio-security span { background-color: #ff9800; } /* Orange */
-        .radio-relatives span { background-color: #2196F3; } /* Blue */
-        .radio-delivery span { background-color: #9C27B0; } /* Purple */
-        .radio-other span { background-color: #FF5722; } /* Red */
-        .radio-group input:checked + span {
-            
-			background-color: black;
-        }
-        #video {
-            width: 150px;   /* Set width to 200 pixels */
-            height: 150px;  /* Set height to 200 pixels */
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-top: 5px;
-        }
-        #photo {
-            width: 150px;   /* Set width to 200 pixels */
-            height: 150px;  /* Set height to 200 pixels */
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-top: 5px;
-        }
-		.visitorForm1{
-		 
-		}
-		.mandatory {
-        //border: 2px solid #651C32;
-    }
 
-    .mandatory:focus {
-        //border-color: #651C32;
-    }
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 36px !important;
+    padding-left: 12px !important;
+}
 
-    .error {
-        border-color: red !important;
-        background-color: #ffe6e6;
-    }
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 36px !important;
+}
 
-    .error::placeholder {
-        color: red;
-        font-weight: bold;
+label {
+    margin: 2px 0 1px 0;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #333;
+}
+
+input, textarea, select, option {
+    width: 100%;
+    padding: 8px 6px;
+    margin-bottom: 2px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    border: 2px solid #e0e0e0;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    background: white;
+    height: 36px;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #2e8b57;
+    box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+    outline: none;
+    transform: translateY(-1px);
+}
+
+select {
+    width: 100%;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button {
+    padding: 8px 14px;
+    background: linear-gradient(135deg, #2e8b57 0%, #3cb371 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 2px;
+    box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #26734d 0%, #2e8b57 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 139, 87, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.radio-group label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 12px 8px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    color: #555;
+}
+
+.radio-group label:hover {
+    border-color: #2e8b57;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 139, 87, 0.15);
+    background: #f8fff9;
+}
+
+.radio-group input {
+    display: none;
+}
+
+.radio-group input:checked + label {
+    background: linear-gradient(135deg, #2e8b57 0%, #3cb371 100%) !important;
+    color: white !important;
+    border-color: #2e8b57 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(46, 139, 87, 0.25);
+}
+
+.radio-group input:checked + label i {
+    color: white !important;
+}
+
+.radio-group input:checked + label .visitor-type-text {
+    color: white !important;
+}
+
+.radio-group input + span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    margin-bottom: 6px;
+    transition: all 0.3s ease;
+    border: 2px solid #e0e0e0;
+}
+
+.radio-group input:checked + span {
+    background-color: white;
+    transform: scale(1.1);
+    border-color: white;
+}
+
+.radio-housekeeping span { background-color: #ff9800; border-color: #ff9800; }
+.radio-security span { background-color: #ff9800; border-color: #ff9800; }
+.radio-relatives span { background-color: #2196F3; border-color: #2196F3; }
+.radio-delivery span { background-color: #9C27B0; border-color: #9C27B0; }
+.radio-other span { background-color: #FF5722; border-color: #FF5722; }
+
+.radio-group input:checked + .radio-housekeeping span { background-color: white; border-color: white; }
+.radio-group input:checked + .radio-security span { background-color: white; border-color: white; }
+.radio-group input:checked + .radio-relatives span { background-color: white; border-color: white; }
+.radio-group input:checked + .radio-delivery span { background-color: white; border-color: white; }
+.radio-group input:checked + .radio-other span { background-color: white; border-color: white; }
+
+.visitor-type-text {
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-top: 2px;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+
+#video, #photo {
+    width: 50%;
+    height: 120px;
+    border: 2px solid #2e8b57;
+    border-radius: 8px;
+    margin: 0;
+    display: block;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    flex: 1;
+}
+
+.visitorForm1 {
+    position: relative;
+}
+
+.mandatory {
+    border-color: #2e8b57;
+}
+
+.mandatory:focus {
+    border-color: #2e8b57;
+    box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.2);
+}
+
+.error {
+    border-color: #ff4444 !important;
+    background-color: #fff5f5;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.error::placeholder {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap !important;
+}
+
+.input-group input {
+    flex: 1 1 0%;
+    min-width: 0;
+}
+
+.input-group button {
+    padding: 12px 16px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    margin: 0;
+}
+
+.vehicle-input {
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #2e8b57, transparent);
+    margin: 16px 0;
+}
+
+#toast {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    font-size: 1rem;
+    font-weight: 600;
+    animation: slideIn 0.3s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
     }
-	.input-group {
-            display: flex;
-            align-items: center;
-            //gap: 8px; /* space between input and button */
-        }
-        .input-group input {
-            flex: 1;
-            padding: 8px;
-            font-size: 16px;
-        }
-        .input-group button {
-            padding: 8px 12px;
-            font-size: 20px;
-            cursor: pointer;
-        }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 4px;
+        border-radius: 8px;
+    }
+    
+    form {
+        max-width: 98%;
+        padding: 12px 8px;
+        margin: 8px auto;
+        gap: 6px;
+    }
+    
+    h3 {
+        font-size: 0.9rem;
+        padding: 6px 6px;
+    }
+    
+    h5 {
+        font-size: 0.7rem;
+        margin: 2px 0 6px 0;
+    }
+    
+    .radio-group {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+    
+    .radio-group label {
+        padding: 8px 4px;
+        font-size: 0.75rem;
+    }
+    
+    input, select, button {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 10px 8px;
+    }
+    
+    button {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+    
+    #video, #photo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .input-group {
+        flex-wrap: nowrap !important;
+        gap: 4px;
+    }
+    
+    .input-group input {
+        width: 100%;
+    }
+    
+    .vehicle-input-group {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
+    }
+    
+    .flat-input-group {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+    
+    .camera-container {
+        flex-direction: row !important;
+        gap: 4px;
+    }
+    
+    .form-section label {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+    
+    .speak-btn {
+        max-width: 32px;
+        font-size: 1em;
+        padding: 0 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    form {
+        padding: 8px 6px;
+    }
+    
+    .radio-group {
+        grid-template-columns: 1fr;
+    }
+    
+    button {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+    
+    #toast {
+        bottom: 8px;
+        right: 8px;
+        left: 8px;
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 12px 16px;
+    }
+    
+    .vehicle-input-group {
+        grid-template-columns: 1fr;
+    }
+    
+    .vehicle-input-group input {
+        font-size: 0.9rem;
+    }
+    
+    .capture-btn, .submit-btn, .main-action-btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    form {
+        background: rgba(30, 30, 30, 0.95);
+        color: white;
+    }
+    
+    input, select, textarea {
+        background: rgba(50, 50, 50, 0.9);
+        color: white;
+        border-color: #555;
+    }
+    
+    label {
+        color: #e0e0e0;
+    }
+}
+
+/* Additional styles for new form structure */
+.form-section {
+    margin-bottom: 6px;
+}
+
+.form-section label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 2px;
+}
+
+.required {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+.speak-btn {
+    min-width: unset;
+    max-width: 36px;
+    height: 36px;
+    padding: 0 6px;
+    margin-left: 4px;
+    align-self: center;
+    font-size: 1.1em;
+    white-space: nowrap;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.vehicle-input-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    align-items: center;
+}
+
+.vehicle-input-group input {
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.flat-input-group {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 4px;
+    align-items: center;
+}
+
+.wing-select, .flat-select {
+    width: 100%;
+    height: 36px;
+    border-radius: 6px;
+    border: 2px solid #e0e0e0;
+    padding: 8px 6px;
+    font-size: 0.9rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.camera-section {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.camera-container {
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.capture-btn {
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+    width: 50%;
+    margin-left: auto;
+    display: block;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 12px;
+}
+
+.main-action-btn {
+    background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.flat-search-container {
+    position: relative;
+    flex: 1;
+}
+
+.flat-search-input {
+    width: 100%;
+    height: 36px;
+    padding: 8px 6px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: white;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    margin-bottom: 4px;
+}
+
+.flat-search-input:focus {
+    border-color: #2e8b57;
+    box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+    outline: none;
+}
+
+.flat-input-group {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 4px;
+    align-items: center;
+}
+
+.flat-select {
+    width: 100%;
+    height: 36px;
+    border-radius: 6px;
+    border: 2px solid #e0e0e0;
+    padding: 8px 6px;
+    font-size: 0.9rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.radio-group label:has(input:checked) {
+    background: linear-gradient(135deg, #2e8b57 0%, #3cb371 100%) !important;
+    color: white !important;
+    border-color: #2e8b57 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(46, 139, 87, 0.25);
+}
+
+.radio-group label:has(input:checked) i {
+    color: white !important;
+}
+
+.radio-group label:has(input:checked) .visitor-type-text {
+    color: white !important;
+}
+
+.radio-group label:not(:has(input:checked)) i {
+    color: inherit;
+}
+
+.radio-group label:not(:has(input:checked)) .visitor-type-text {
+    color: #555;
+}
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-</head>
+</head> 
 <body>
-<div id="toast" style="
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: Green;
-    color: #fff;
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    z-index: 2000;
-    font-size: 30px;">
-</div>
+<div id="toast"></div>
 <h3><a href="https://cpsociety.co.in/">CHAVAN PARADISE PHASE 1</a></h3>
 <h5> Survey No 28 / 26 / 09, Jijamata Chowk Ambeon Pathar Pune, 46</h5>
 
@@ -255,181 +746,172 @@ footer {
     <div class="radio-group" style="display:none;">
         <input type="radio" id="gate1" name="gate" value="gate1" required checked >
         <label class="gate1" for="gate1">Gate No 1</label>
-        
-        <!--<input type="radio" id="gate2" name="gate" value="gate2">
-        <label class="gate2" for="gate2">Gate No 2-->
     </div>
-<button id="entrygate1">🚪 Add Visitor 🚪</button>
 
-	<hr> <b>  Visitor Name<font color=red>*  <button id="toggle" title="Speak">🎙️</button></font> </b>
-    <div class="input-group">
-    <input
-      type="text"
-      id="name"
-      name="name"
-	  maxlength="40" 
-      placeholder=""
-      required
-      class="mandatory"
-    />
-  
-  </div><hr>
-  <b>  Contact Number <font color=red>*</font></b>
-   <div class="input-group">
-    <input 
-  type="tel" 
-  id="phone" 
-  name="phone" 
-  maxlength="10" 
-  minlength="10" 
-  pattern="[0-9]{10}" 
-  placeholder="" 
-  required 
-  class="mandatory"
->
+    <button type="button" id="entrygate1" class="main-action-btn">🚪 Add Visitor 🚪</button>
+
+    <div class="form-section">
+        <div class="input-group">
+            <input
+                type="text"
+                id="name"
+                name="name"
+                maxlength="40" 
+                placeholder="Enter visitor name"
+                required
+                class="mandatory"
+            />
+            <button type="button" id="toggle-name" title="Speak Name" class="speak-btn">🎙️</button>
+        </div>
     </div>
-	<hr>
+
+    <div class="form-section">
+        <div class="input-group">
+            <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                maxlength="10" 
+                minlength="10" 
+                pattern="[0-9]{10}" 
+                placeholder="Enter 10-digit number" 
+                required 
+                class="mandatory"
+            >
+            <button type="button" id="toggle-phone" title="Speak Phone" class="speak-btn">🎙️</button>
+        </div>
+    </div>
 	
-	   <div class="input-group" style="display:none;">
-    <input type="number" id="numVisitors" name="numVisitors" value="1"  Placeholder=" ? संख्या/ Enter Visitor's Count" required min="1" class="mandatory">
+    <div class="form-section" style="display:none;">
+        <div class="input-group">
+            <input type="number" id="numVisitors" name="numVisitors" value="1" placeholder="Enter visitor count" required min="1" class="mandatory">
+        </div>
     </div>
-	<b>  Vehicle Number </b>
-	   <div class="input-group">
-    <input type="text" id="vehicleNumber" name="vehicleNumber" Placeholder=" " style="display:none;">
-    <input type="text" id="vehicle1" maxlength=2 minlength=2 name="vehicle1"  style="text-transform: uppercase;"  Placeholder="MH" class="vehicle-input"/>
-    &nbsp;&nbsp;<input type="number" id="vehicle2"  maxlength=2 minlength=2 name="vehicle2" Placeholder="12" class="vehicle-input"/>
-    &nbsp;&nbsp;<input type="text" id="vehicle3" maxlength=2 minlength=2   style="text-transform: uppercase;" class="vehicle-input" name="vehicle3" Placeholder="XX"/>
-     &nbsp;&nbsp;<input 
-  type="number" 
-  id="vehicle4" 
-  name="vehicle4" 
-  maxlength="4" 
-  minlength="4" 
-  pattern="\d{4}" 
-  placeholder="XXXX" 
-  class="vehicle-input"
->
-</div><hr>
-<b>  Flat Number <font color=red>*</font>	</b>
-<div class="input-group">
-	<table width="100%"><tr><td width="30%">
-  <select id="wingNumber" style="height: 38px;">
-	  <option>A</option>
-	  <option>B</option>
-	  <option>C</option>
-  </select></td><td  width="80%">
-  <select id="flatNumber" style="height: 38px;"  width="100%" required class="mandatory" >
-	  <option>101</option>
-	  <option>102</option>
-	  <option>103</option>
-	  <option>104</option>
-	  <option>105</option>
-	  <option>106</option>
-	  <option>201</option>
-	  <option>202</option>
-	  <option>203</option>
-	  <option>204</option>
-	  <option>205</option>
-	  <option>206</option>
-	  <option>301</option>
-	  <option>302</option>
-	  <option>303</option>
-	  <option>304</option>
-	  <option>305</option>
-	  <option>306</option>
-	  <option>401</option>
-	  <option>402</option>
-	  <option>403</option>
-	  <option>404</option>
-	  <option>405</option>
-	  <option>406</option>
-	  <option>501</option>
-	  <option>502</option>
-	  <option>503</option>
-	  <option>504</option>
-	  <option>505</option>
-	  <option>506</option>
-	  <option>601</option>
-	  <option>602</option>
-	  <option>603</option>
-	  <option>604</option>
-	  <option>605</option>
-	  <option>606</option>
-	  <option>701</option>
-	  <option>702</option>
-	  <option>703</option>
-	  <option>704</option>
-	  <option>705</option>
-	  <option>706</option>
-	  <option>801</option>
-	  <option>802</option>
-	  <option>803</option>
-	  <option>804</option>
-	  <option>805</option>
-	  <option>806</option>
-	  <option>901</option>
-	  <option>902</option>
-	  <option>903</option>
-	  <option>904</option>
-	  <option>905</option>
-	  <option>906</option>
-	  <option>1001</option>
-	  <option>1002</option>
-	  <option>1003</option>
-	  <option>1004</option>
-	  <option>1005</option>
-	  <option>1006</option>
-	  
-  </select></td><td>
- <!-- <input type="number" id="flatNumber" maxlength="4" pattern="\d{4}" minlength=3 name="phone" Placeholder="📱 Flat Number" >--></div></td></tr></table></div>
+
+    <div class="form-section">
+        <div class="vehicle-input-group">
+            <input type="text" id="vehicle1" maxlength="2" minlength="2" name="vehicle1" style="text-transform: uppercase;" placeholder="MH" class="vehicle-input"/>
+            <input type="number" id="vehicle2" maxlength="2" minlength="2" name="vehicle2" placeholder="12" class="vehicle-input"/>
+            <input type="text" id="vehicle3" maxlength="2" minlength="2" style="text-transform: uppercase;" class="vehicle-input" name="vehicle3" placeholder="XX"/>
+            <input type="number" id="vehicle4" name="vehicle4" maxlength="4" minlength="4" pattern="\d{4}" placeholder="XXXX" class="vehicle-input">
+        </div>
+    </div>
+
+    <div class="form-section">
+        <div class="flat-input-group">
+            <select id="wingNumber" class="wing-select">
+                <option value="A">Wing A</option>
+                <option value="B">Wing B</option>
+                <option value="C">Wing C</option>
+            </select>
+            <select id="flatNumber" required class="mandatory flat-select">
+                <option value="">Select Flat</option>
+                <option value="101">101</option>
+                <option value="102">102</option>
+                <option value="103">103</option>
+                <option value="104">104</option>
+                <option value="105">105</option>
+                <option value="106">106</option>
+                <option value="201">201</option>
+                <option value="202">202</option>
+                <option value="203">203</option>
+                <option value="204">204</option>
+                <option value="205">205</option>
+                <option value="206">206</option>
+                <option value="301">301</option>
+                <option value="302">302</option>
+                <option value="303">303</option>
+                <option value="304">304</option>
+                <option value="305">305</option>
+                <option value="306">306</option>
+                <option value="401">401</option>
+                <option value="402">402</option>
+                <option value="403">403</option>
+                <option value="404">404</option>
+                <option value="405">405</option>
+                <option value="406">406</option>
+                <option value="501">501</option>
+                <option value="502">502</option>
+                <option value="503">503</option>
+                <option value="504">504</option>
+                <option value="505">505</option>
+                <option value="506">506</option>
+                <option value="601">601</option>
+                <option value="602">602</option>
+                <option value="603">603</option>
+                <option value="604">604</option>
+                <option value="605">605</option>
+                <option value="606">606</option>
+                <option value="701">701</option>
+                <option value="702">702</option>
+                <option value="703">703</option>
+                <option value="704">704</option>
+                <option value="705">705</option>
+                <option value="706">706</option>
+                <option value="801">801</option>
+                <option value="802">802</option>
+                <option value="803">803</option>
+                <option value="804">804</option>
+                <option value="805">805</option>
+                <option value="806">806</option>
+                <option value="901">901</option>
+                <option value="902">902</option>
+                <option value="903">903</option>
+                <option value="904">904</option>
+                <option value="905">905</option>
+                <option value="906">906</option>
+                <option value="1001">1001</option>
+                <option value="1002">1002</option>
+                <option value="1003">1003</option>
+                <option value="1004">1004</option>
+                <option value="1005">1005</option>
+                <option value="1006">1006</option>
+            </select>
+        </div>
+    </div>
   
-    <textarea style="display:none;" id="reason" name="reason" rows="2" Placeholder="कारण / Reason"></textarea>
+    <textarea style="display:none;" id="reason" name="reason" rows="2" placeholder="कारण / Reason"></textarea>
 
-    <b>  Visitor Type <font color=red>*</font></b>
-   <div class="radio-group">
-    <label class="radio-relatives">
-        <input type="radio" name="visitorType" value="relatives" checked>
-        <span></span> 
-        <i class="fa fa-user" style="font-size:24px;color:#2196F3;"></i> <b><font color="#2196F3;"></font></b>
-    </label>
-    <label class="radio-housekeeping"> 
-        <input type="radio" name="visitorType" value="housekeeping" required>
-        <span></span> 
-        <i class="fas fa-broom" style="font-size:24px;color:#4CAF50;"></i> <b><font size=4px; color="#2196F3;">🪣</font></b>
-    </label>
-    <label class="radio-delivery">
-        <input type="radio" name="visitorType" value="delivery">
-        <span></span> 
-        <i class='fa fa-truck' style='font-size:24px;color:purple;'></i> <b><font color="#2196F3;"></font></b>
-    </label>
-	<label class="radio-other">
-        <input type="radio" name="visitorType" value="other">
-        <span></span> 
-        <i class='fa fa-question' style='font-size:24px;color:#FF5722;'></i> <b><font color="#2196F3;"></font></b>
-    </label>
-    <!--<label class="radio-other" style="font-size:24px;color:#FF5722;">
-        <input type="radio" name="visitorType" value="other"  style="font-size:24px;color:#FF5722;"><b><font color="#2196F3;"><h6>Other - इतर</h6></font></b>
-        <span></span> 
-        <i class="fa fa-circle"></i>-->
-    </label>
-</div>
+    <div class="form-section">
+        <div class="radio-group">
+            <label class="radio-relatives">
+                <input type="radio" name="visitorType" value="relatives" checked>
+                <span></span> 
+                <i class="fa fa-user" style="font-size:24px;color:#2196F3;"></i>
+                <span class="visitor-type-text">Relatives</span>
+            </label>
+            <label class="radio-housekeeping"> 
+                <input type="radio" name="visitorType" value="housekeeping" required>
+                <span></span> 
+                <i class="fa fa-home" style="font-size:24px;color:#4CAF50;"></i>
+                <span class="visitor-type-text">Housekeeping</span>
+            </label>
+            <label class="radio-delivery">
+                <input type="radio" name="visitorType" value="delivery">
+                <span></span> 
+                <i class='fa fa-truck' style='font-size:24px;color:purple;'></i>
+                <span class="visitor-type-text">Delivery</span>
+            </label>
+            <label class="radio-other">
+                <input type="radio" name="visitorType" value="other">
+                <span></span> 
+                <i class='fa fa-question' style='font-size:24px;color:#FF5722;'></i>
+                <span class="visitor-type-text">Other</span>
+            </label>
+        </div>
+    </div>
 
-    <table align="center" style="max-height:100px;">
-        <tr style="max-height:100px;">
-            <td style="max-height:100px;">
-                <video id="video" autoplay style="max-height:100px;"></video>
-               
-            </td>
-			
-            <td style="max-height:100px;">            
-                <img id="photo" style="max-height:100px;" src="data:image/png;base64,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" alt="Captured Image will be appeared here" />
-				
-            </td>
-        </tr>
-    </table>
-	 <button type="button" id="capture">फोटो काढा / फोटो खिंचे /Capture Photo</button>
-<canvas id="canvas" style="display:none;"></canvas>
-    <button type="submit">परवानगी द्या /अनुमति दें /Allow Visitor</button>
+    <div class="camera-section">
+        <div class="camera-container" style="flex-direction: row; align-items: center; justify-content: center; gap: 8px;">
+            <video id="video" autoplay muted></video>
+            <img id="photo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Captured Image will appear here" />
+        </div>
+        <button type="button" id="capture" class="capture-btn">📸 Capture Photo</button>
+    </div>
+
+    <canvas id="canvas" style="display:none;"></canvas>
+    
+    <button type="submit" class="submit-btn">✅ Allow Visitor</button>
 </form>
  <footer>
         <p>&copy; 2024 Thread IoT. All rights reserved.</p>
@@ -446,27 +928,16 @@ function showToast(message) {
     toast.style.display = 'none';
   }, 3000);
 }
-document.getElementById('flatNumber').addEventListener('input', function () {
+document.getElementById('flatNumber').addEventListener('change', function () {
   let value = this.value;
-
-  // Remove anything that's not a digit
-  this.value = value.replace(/[^0-9]/g, '');
-
-  // Ensure the value is no longer than 4 digits
-  if (this.value.length > 4) {
-    this.value = this.value.slice(0, 4);
-  }
 
   // If value is empty, return (no validation yet)
   if (this.value === '') return;
 
-  // Only validate once the value is at least 3 digits
-  if (this.value.length >= 3) {
-    // Validate range for 101 to 1010
-    if (parseInt(this.value) < 101 || parseInt(this.value) > 1010) {
-      showToast('Please enter a flat number between 101 and 1010.');
-      this.value = ''; // Clear the input if out of range
-    }
+  // Validate range for 101 to 1010
+  if (parseInt(this.value) < 101 || parseInt(this.value) > 1010) {
+    showToast('Please select a flat number between 101 and 1010.');
+    this.value = ''; // Clear the selection if out of range
   }
 });
 document.getElementById('phone').addEventListener('input', function (event) {
@@ -497,6 +968,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    });
+
     // Vehicle number validation
    
 
@@ -519,8 +992,15 @@ document.addEventListener("DOMContentLoaded", function () {
         return tempCanvas;
     }
 
-    // Initialize Select2 for dropdown
-    
+    // Initialize Select2 for dropdown with search
+    $(document).ready(function() {
+        $('#flatNumber').select2({
+            placeholder: 'Search and select flat number...',
+            allowClear: true,
+            width: '100%',
+            dropdownParent: $('body')
+        });
+    });
 
     // Capture image from camera
     const video = document.getElementById('video');
@@ -600,49 +1080,85 @@ fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
     $('#vehicle2').val('');
     $('#vehicle3').val('');
     $('#vehicle4').val('');
-    document.getElementById('canvas').value = '';
+    $('#wingNumber').val('A');
+    $('#flatNumber').val('');
+    $('#photo').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');
+    // Reset radio buttons
+    $('input[name="visitorType"]').prop('checked', false);
+    $('input[name="visitorType"][value="relatives"]').prop('checked', true);
 })
 .catch(error => {
     showToast(`Error: ${error.message}`);
 });
 
-
-	    
-    });
-
     // Speech recognition
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition) {
-        const recognition = new SpeechRecognition();
-        recognition.continuous = true;
-        recognition.interimResults = true;
-        recognition.lang = 'en-US';
-
-        const toggleBtn = document.getElementById("toggle");
-        const nameInput = document.getElementById("name");
-        let isListening = false;
-
-        recognition.onresult = (event) => {
-            let transcript = Array.from(event.results)
-                .slice(event.resultIndex)
-                .map(result => result[0].transcript)
-                .join('');
-            nameInput.value = transcript.trim();
-        };
-
-        toggleBtn.onclick = () => {
-            if (isListening) {
-                recognition.stop();
-                toggleBtn.innerText = "🎤";
-            } else {
-                recognition.start();
-                toggleBtn.innerText = "🛑";
-            }
-            isListening = !isListening;
-        };
+        function setupSpeech(btnId, inputId) {
+            const recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+            const btn = document.getElementById(btnId);
+            const input = document.getElementById(inputId);
+            let isListening = false;
+            recognition.onresult = (event) => {
+                let transcript = Array.from(event.results)
+                    .map(result => result[0].transcript)
+                    .join('');
+                input.value = transcript.trim();
+            };
+            btn.onclick = () => {
+                if (isListening) {
+                    recognition.stop();
+                    btn.innerText = "🛑";
+                } else {
+                    recognition.start();
+                    btn.innerText = "🛑";
+                }
+                isListening = !isListening;
+            };
+        }
+        setupSpeech("toggle-name", "name");
+        setupSpeech("toggle-phone", "phone");
     } else {
         showToast("Speech recognition not supported. Use Chrome or Edge.");
     }
+});
+
+// Flat search functionality
+document.getElementById('flatSearch').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const flatSelect = document.getElementById('flatNumber');
+    const options = flatSelect.querySelectorAll('option');
+    
+    options.forEach(option => {
+        if (option.value === '') return; // Skip the "Select Flat" option
+        
+        const flatNumber = option.value.toLowerCase();
+        if (flatNumber.includes(searchTerm)) {
+            option.style.display = '';
+        } else {
+            option.style.display = 'none';
+        }
+    });
+    
+    // If search term is empty, show all options
+    if (searchTerm === '') {
+        options.forEach(option => {
+            option.style.display = '';
+        });
+    }
+});
+
+// Clear search when flat is selected
+document.getElementById('flatNumber').addEventListener('change', function() {
+    document.getElementById('flatSearch').value = '';
+    // Show all options again
+    const options = this.querySelectorAll('option');
+    options.forEach(option => {
+        option.style.display = '';
+    });
 });
 </script>
 
