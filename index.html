@@ -752,13 +752,42 @@ hr {
     </div>
 
     <div class="form-section">
+        <div class="radio-group">
+            <label class="radio-relatives">
+                <input type="radio" name="visitorType" value="relatives" checked>
+                <span></span> 
+                <i class="fa fa-user" style="font-size:24px;color:#2196F3;"></i>
+                <span class="visitor-type-text">Relatives</span>
+            </label>
+            <label class="radio-housekeeping"> 
+                <input type="radio" name="visitorType" value="housekeeping" required>
+                <span></span> 
+                <i class="fa fa-home" style="font-size:24px;color:#4CAF50;"></i>
+                <span class="visitor-type-text">Housekeeping</span>
+            </label>
+            <label class="radio-delivery">
+                <input type="radio" name="visitorType" value="delivery">
+                <span></span> 
+                <i class='fa fa-truck' style='font-size:24px;color:purple;'></i>
+                <span class="visitor-type-text">Delivery</span>
+            </label>
+            <label class="radio-other">
+                <input type="radio" name="visitorType" value="other">
+                <span></span> 
+                <i class='fa fa-question' style='font-size:24px;color:#FF5722;'></i>
+                <span class="visitor-type-text">Other</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-section" id="flatSection">
         <div class="flat-input-group">
             <select id="wingNumber" class="wing-select">
                 <option value="A">Wing A</option>
                 <option value="B">Wing B</option>
                 <option value="C">Wing C</option>
             </select>
-            <select id="flatNumber" required class="mandatory flat-select">
+            <select id="flatNumber" class="flat-select">
                 <option value="">Select Flat</option>
                 <option value="101">101</option>
                 <option value="102">102</option>
@@ -826,35 +855,6 @@ hr {
   
     <textarea style="display:none;" id="reason" name="reason" rows="2" placeholder="कारण / Reason"></textarea>
 
-    <div class="form-section">
-        <div class="radio-group">
-            <label class="radio-relatives">
-                <input type="radio" name="visitorType" value="relatives" checked>
-                <span></span> 
-                <i class="fa fa-user" style="font-size:24px;color:#2196F3;"></i>
-                <span class="visitor-type-text">Relatives</span>
-            </label>
-            <label class="radio-housekeeping"> 
-                <input type="radio" name="visitorType" value="housekeeping" required>
-                <span></span> 
-                <i class="fa fa-home" style="font-size:24px;color:#4CAF50;"></i>
-                <span class="visitor-type-text">Housekeeping</span>
-            </label>
-            <label class="radio-delivery">
-                <input type="radio" name="visitorType" value="delivery">
-                <span></span> 
-                <i class='fa fa-truck' style='font-size:24px;color:purple;'></i>
-                <span class="visitor-type-text">Delivery</span>
-            </label>
-            <label class="radio-other">
-                <input type="radio" name="visitorType" value="other">
-                <span></span> 
-                <i class='fa fa-question' style='font-size:24px;color:#FF5722;'></i>
-                <span class="visitor-type-text">Other</span>
-            </label>
-        </div>
-    </div>
-
     <div class="camera-section">
         <div class="camera-container" style="flex-direction: row; align-items: center; justify-content: center; gap: 8px;">
             <video id="video" autoplay muted></video>
@@ -912,6 +912,38 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // Conditional validation for wing/flat based on visitor type
+    function updateFlatSection() {
+        const selectedType = document.querySelector('input[name="visitorType"]:checked').value;
+        const flatSection = document.getElementById('flatSection');
+        const wingSelect = document.getElementById('wingNumber');
+        const flatSelect = document.getElementById('flatNumber');
+        
+        if (selectedType === 'relatives' || selectedType === 'delivery') {
+            // Make wing and flat required
+            wingSelect.required = true;
+            flatSelect.required = true;
+            wingSelect.classList.add('mandatory');
+            flatSelect.classList.add('mandatory');
+            flatSection.style.display = 'block';
+        } else {
+            // Make wing and flat optional
+            wingSelect.required = false;
+            flatSelect.required = false;
+            wingSelect.classList.remove('mandatory');
+            flatSelect.classList.remove('mandatory');
+            flatSection.style.display = 'block'; // Keep visible but not required
+        }
+    }
+
+    // Add event listeners for radio button changes
+    document.querySelectorAll('input[name="visitorType"]').forEach(radio => {
+        radio.addEventListener('change', updateFlatSection);
+    });
+
+    // Initialize flat section on page load
+    updateFlatSection();
+
     // Resize canvas function
     function resizeCanvas(canvas, maxWidth, maxHeight) {
         const tempCanvas = document.createElement("canvas");
@@ -965,6 +997,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // Form submission
     $('#visitorForm').on('submit', function (event) {
         event.preventDefault();
+        
+        // Get selected visitor type
+        const selectedType = $('input[name="visitorType"]:checked').val();
+        
+        // Validate wing/flat for relatives and delivery
+        if ((selectedType === 'relatives' || selectedType === 'delivery') && 
+            (!$('#wingNumber').val() || !$('#flatNumber').val())) {
+            showToast('Wing and Flat number are required for ' + selectedType + ' visitors.');
+            return;
+        }
+        
         const compressedCanvas = resizeCanvas(canvas, 2048, 2048);
         base64Image = compressedCanvas.toDataURL('image/jpeg', 0.1);
         
@@ -975,11 +1018,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 "VehicleNumber": $('#vehicle1').val()+""+$('#vehicle2').val()+" "+$('#vehicle3').val() +" "+$('#vehicle4').val(),
                 "VisitorCount": document.getElementById("numVisitors").value,
                 "FlatNo": $('#wingNumber').val() +"_"+$('#flatNumber').val(),
-                "Reason": "",
+                "Reason": selectedType, // Use selected radio button value as reason
                 "Image": base64Image,
                 "VisitorType": 1,
-                "LoginTime": "2025-04-26",
-                "LogoutTime": "2025-04-26",
+                "LoginTime": new Date().toISOString(),
+                "LogoutTime": new Date().toISOString(),
                 "ApprovalStatus": 0,
                 "Extra1": "Extra data 1",
                 "Extra2": "Extra data 2",
@@ -1013,6 +1056,7 @@ document.addEventListener("DOMContentLoaded", function () {
             $('#photo').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');
             $('input[name="visitorType"]').prop('checked', false);
             $('input[name="visitorType"][value="relatives"]').prop('checked', true);
+            updateFlatSection(); // Update flat section after form reset
         })
         .catch(error => {
             showToast(`Error: ${error.message}`);
