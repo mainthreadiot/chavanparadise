@@ -95,28 +95,6 @@ form {
     flex-direction: column;
     gap: 4px;
     backdrop-filter: blur(10px);
-    position: relative;
-    background-image: url('https://lh3.googleusercontent.com/p/AF1QipPZV0QdjODym-RluDo_EAFdw9xfep2EBU5kJDOx=s680-w680-h510-rw');
-    background-size: cover;
-    background-position: top center;
-    background-repeat: no-repeat;
-}
-
-form::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 120px;
-    
-    border-radius: 12px 12px 0 0;
-    z-index: 1;
-}
-
-form > * {
-    position: relative;
-    z-index: 2;
 }
 
 .select2-container .select2-selection--single {
@@ -663,30 +641,6 @@ hr {
     margin-bottom: 12px;
 }
 
-.flat-search-container {
-    position: relative;
-    flex: 1;
-}
-
-.flat-search-input {
-    width: 100%;
-    height: 36px;
-    padding: 8px 6px;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    background: white;
-    box-sizing: border-box;
-    transition: all 0.2s ease;
-    margin-bottom: 4px;
-}
-
-.flat-search-input:focus {
-    border-color: #2e8b57;
-    box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
-    outline: none;
-}
-
 .flat-input-group {
     display: grid;
     grid-template-columns: 2fr 2fr;
@@ -928,81 +882,60 @@ function showToast(message) {
     toast.style.display = 'none';
   }, 3000);
 }
-document.getElementById('flatNumber').addEventListener('change', function () {
-  let value = this.value;
 
-  // If value is empty, return (no validation yet)
-  if (this.value === '') return;
-
-  // Validate range for 101 to 1010
-  if (parseInt(this.value) < 101 || parseInt(this.value) > 1010) {
-    showToast('Please select a flat number between 101 and 1010.');
-    this.value = ''; // Clear the selection if out of range
-  }
-});
-document.getElementById('phone').addEventListener('input', function (event) {
-  // Remove any non-numeric characters
-  this.value = this.value.replace(/[^0-9]/g, '');
-});
-	 const vehicleInputs = document.querySelectorAll('.vehicle-input');
-
-    vehicleInputs.forEach((input, index) => {
-      input.addEventListener('input', () => {
-        if (input.value.length === parseInt(input.maxLength, 10)) {
-          const nextInput = vehicleInputs[index + 1];
-          if (nextInput) {
-            nextInput.focus();
-          }
-        }
-      });
-    });
 document.addEventListener("DOMContentLoaded", function () {
-    // Highlight selected radio button
-    function highlightSelection() {
-        const labels = document.querySelectorAll(".radio-group label");
-        labels.forEach(label => label.classList.remove("selected"));
-        
-        const selectedRadio = document.querySelector(".radio-group input:checked");
-        if (selectedRadio) {
-            selectedRadio.parentElement.classList.add("selected");
+    // Flat number validation
+    document.getElementById('flatNumber').addEventListener('change', function () {
+        let value = this.value;
+        if (this.value === '') return;
+        if (parseInt(this.value) < 101 || parseInt(this.value) > 1010) {
+            showToast('Please select a flat number between 101 and 1010.');
+            this.value = '';
         }
-    }
-
     });
 
-    // Vehicle number validation
-   
+    // Phone number validation
+    document.getElementById('phone').addEventListener('input', function (event) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
 
-    // Resize canvas
+    // Vehicle input auto-focus
+    const vehicleInputs = document.querySelectorAll('.vehicle-input');
+    vehicleInputs.forEach((input, index) => {
+        input.addEventListener('input', () => {
+            if (input.value.length === parseInt(input.maxLength, 10)) {
+                const nextInput = vehicleInputs[index + 1];
+                if (nextInput) {
+                    nextInput.focus();
+                }
+            }
+        });
+    });
+
+    // Resize canvas function
     function resizeCanvas(canvas, maxWidth, maxHeight) {
         const tempCanvas = document.createElement("canvas");
         const ctx = tempCanvas.getContext("2d");
-
         let width = canvas.width;
         let height = canvas.height;
-
         const scale = Math.min(maxWidth / width, maxHeight / height);
         width *= scale;
         height *= scale;
-
         tempCanvas.width = width;
         tempCanvas.height = height;
         ctx.drawImage(canvas, 0, 0, width, height);
-
         return tempCanvas;
     }
 
     // Initialize Select2 for dropdown with search
-    $(document).ready(function() {
-        $('#flatNumber').select2({
-            placeholder: 'Search and select flat number...',
-            allowClear: true,
-            width: '100%',
-            dropdownParent: $('body')
-        });
+    $('#flatNumber').select2({
+        placeholder: 'Search and select flat number...',
+        allowClear: true,
+        width: '100%',
+        dropdownParent: $('body')
     });
 
-    // Capture image from camera
+    // Camera functionality
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const photo = document.getElementById('photo');
@@ -1031,65 +964,60 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Form submission
     $('#visitorForm').on('submit', function (event) {
-        event.preventDefault(); // Prevent default submission
-
-        //if (!validateVehicleNumber()) return;
-
+        event.preventDefault();
         const compressedCanvas = resizeCanvas(canvas, 2048, 2048);
         base64Image = compressedCanvas.toDataURL('image/jpeg', 0.1);
-	
-      const data ={
-  "Entity": {
-    "Name": $('#name').val(),
-    "MobileNumber": $('#phone').val(),
-    "VehicleNumber": $('#vehicle1').val()+""+$('#vehicle2').val()+" "+$('#vehicle3').val() +" "+$('#vehicle4').val(),
-    "VisitorCount": document.getElementById("numVisitors").value,
-    "FlatNo": $('#wingNumber').val() +"_"+$('#flatNumber').val(),
-    "Reason": "",
-    "Image": base64Image,
-    "VisitorType": 1, // Map "relatives" to a corresponding integer
-    "LoginTime": "2025-04-26",
-    "LogoutTime": "2025-04-26",
-    "ApprovalStatus": 0,
-    "Extra1": "Extra data 1",
-    "Extra2": "Extra data 2",
-    "Extra3": "Extra data 3",
-    "Extra4": "Extra data 4",
-    "Extra5": "Extra data 5"
-  }
-};
+        
+        const data = {
+            "Entity": {
+                "Name": $('#name').val(),
+                "MobileNumber": $('#phone').val(),
+                "VehicleNumber": $('#vehicle1').val()+""+$('#vehicle2').val()+" "+$('#vehicle3').val() +" "+$('#vehicle4').val(),
+                "VisitorCount": document.getElementById("numVisitors").value,
+                "FlatNo": $('#wingNumber').val() +"_"+$('#flatNumber').val(),
+                "Reason": "",
+                "Image": base64Image,
+                "VisitorType": 1,
+                "LoginTime": "2025-04-26",
+                "LogoutTime": "2025-04-26",
+                "ApprovalStatus": 0,
+                "Extra1": "Extra data 1",
+                "Extra2": "Extra data 2",
+                "Extra3": "Extra data 3",
+                "Extra4": "Extra data 4",
+                "Extra5": "Extra data 5"
+            }
+        };
 
-fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-})
-.then(response => {
-    if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-    return response.json();
-})
-.then(result => {
-    showToast("Visitor Entry Added");
-    
-    // Clear form fields
-    $('#name').val('');
-    $('#phone').val('');
-    $('#vehicle1').val('');
-    $('#vehicle2').val('');
-    $('#vehicle3').val('');
-    $('#vehicle4').val('');
-    $('#wingNumber').val('A');
-    $('#flatNumber').val('');
-    $('#photo').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');
-    // Reset radio buttons
-    $('input[name="visitorType"]').prop('checked', false);
-    $('input[name="visitorType"][value="relatives"]').prop('checked', true);
-})
-.catch(error => {
-    showToast(`Error: ${error.message}`);
-});
+        fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+            return response.json();
+        })
+        .then(result => {
+            showToast("Visitor Entry Added");
+            $('#name').val('');
+            $('#phone').val('');
+            $('#vehicle1').val('');
+            $('#vehicle2').val('');
+            $('#vehicle3').val('');
+            $('#vehicle4').val('');
+            $('#wingNumber').val('A');
+            $('#flatNumber').val('');
+            $('#photo').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');
+            $('input[name="visitorType"]').prop('checked', false);
+            $('input[name="visitorType"][value="relatives"]').prop('checked', true);
+        })
+        .catch(error => {
+            showToast(`Error: ${error.message}`);
+        });
+    });
 
     // Speech recognition
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1102,16 +1030,31 @@ fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
             const btn = document.getElementById(btnId);
             const input = document.getElementById(inputId);
             let isListening = false;
+            
             recognition.onresult = (event) => {
                 let transcript = Array.from(event.results)
                     .map(result => result[0].transcript)
                     .join('');
                 input.value = transcript.trim();
+                btn.innerText = "🎙️";
+                isListening = false;
             };
+            
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                btn.innerText = "🎙️";
+                isListening = false;
+            };
+            
+            recognition.onend = () => {
+                btn.innerText = "🎙️";
+                isListening = false;
+            };
+            
             btn.onclick = () => {
                 if (isListening) {
                     recognition.stop();
-                    btn.innerText = "🛑";
+                    btn.innerText = "🎙️";
                 } else {
                     recognition.start();
                     btn.innerText = "🛑";
@@ -1119,48 +1062,14 @@ fetch("https://cpsociety.co.in/Services/Visitor/VisitorInfo/create", {
                 isListening = !isListening;
             };
         }
+        
         setupSpeech("toggle-name", "name");
         setupSpeech("toggle-phone", "phone");
     } else {
         showToast("Speech recognition not supported. Use Chrome or Edge.");
     }
 });
-
-// Flat search functionality
-document.getElementById('flatSearch').addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase();
-    const flatSelect = document.getElementById('flatNumber');
-    const options = flatSelect.querySelectorAll('option');
-    
-    options.forEach(option => {
-        if (option.value === '') return; // Skip the "Select Flat" option
-        
-        const flatNumber = option.value.toLowerCase();
-        if (flatNumber.includes(searchTerm)) {
-            option.style.display = '';
-        } else {
-            option.style.display = 'none';
-        }
-    });
-    
-    // If search term is empty, show all options
-    if (searchTerm === '') {
-        options.forEach(option => {
-            option.style.display = '';
-        });
-    }
-});
-
-// Clear search when flat is selected
-document.getElementById('flatNumber').addEventListener('change', function() {
-    document.getElementById('flatSearch').value = '';
-    // Show all options again
-    const options = this.querySelectorAll('option');
-    options.forEach(option => {
-        option.style.display = '';
-    });
-});
 </script>
 
 </body>
-</html>
+</html> 
