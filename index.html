@@ -854,10 +854,7 @@
             const hasVehicleNumber = vehicle1 || vehicle2 || vehicle3 || vehicle4;
             const hasPhoto = base64Image && base64Image.length > 100; // Check if photo is actually captured
             
-            if (!hasVehicleNumber && !hasPhoto) {
-                showToast("Please enter vehicle number OR capture a photo. At least one is required.", 'error');
-                return;
-            }
+           
             
             // Prepare data
             const vehicleNumber = document.getElementById('vehicle1').value + 
