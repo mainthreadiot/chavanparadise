@@ -145,7 +145,7 @@
 
         .vehicle-grid {
             display: grid;
-            
+            grid-template-columns: repeat(4, 1fr);
             gap: 5px;
         }
 
@@ -160,7 +160,7 @@
 
         .flat-grid {
             display: grid;
-            
+            grid-template-columns: 1fr 1fr;
             gap: 5px;
         }
 
@@ -324,21 +324,11 @@
                 grid-template-columns: 1fr;
             }
 
-            .vehicle-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-                margin: 10px 0;
-            }
-
             .vehicle-grid input {
                 padding: 12px 8px;
                 font-size: 1rem;
                 min-width: 0;
                 width: 100%;
-            }
-
-            .flat-grid {
-                grid-template-columns: 1fr;
             }
 
             .camera-container {
@@ -378,12 +368,6 @@
                 padding: 15px;
             }
             
-            .vehicle-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 4px;
-                margin: 6px 0;
-            }
-
             .vehicle-grid input {
                 padding: 8px 4px;
                 font-size: 14px;
@@ -401,7 +385,7 @@
                 padding: 10px 20px;
                 font-size: 0.9rem;
             }
-            
+        
             .action-buttons {
                 gap: 5px;
             }
@@ -658,6 +642,9 @@
                 // Show form
                 document.getElementById('visitorForm').classList.remove('hidden');
                 
+                // Hide quick action cards
+                document.querySelector('.quick-actions').classList.add('hidden');
+                
                 // Update form based on visitor type
                 updateFormForVisitorType(selectedVisitorType);
                 
@@ -760,6 +747,10 @@
             photo.style.boxShadow = 'none';
             base64Image = '';
             showToast("Form reset successfully!");
+            // Show quick action cards again
+            document.querySelector('.quick-actions').classList.remove('hidden');
+            // Hide the form
+            document.getElementById('visitorForm').classList.add('hidden');
         });
 
         // Speech recognition
@@ -911,6 +902,8 @@
                 document.querySelectorAll('.quick-action-card').forEach(c => c.classList.remove('selected'));
                 document.getElementById('visitorForm').classList.add('hidden');
                 selectedVisitorType = '';
+                // Show quick action cards again
+                document.querySelector('.quick-actions').classList.remove('hidden');
             })
             .catch(error => {
                 showToast(`❌ Error: ${error.message}`, 'error');
@@ -939,6 +932,15 @@
             this.value = this.value.replace(/[^0-9]/g, '');
         });
 
+        // Ensure input is visible above keyboard on mobile
+        document.querySelectorAll('#entryForm input, #entryForm select').forEach(el => {
+            el.addEventListener('focus', function() {
+                setTimeout(() => {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 200); // Delay helps after keyboard opens
+            });
+        });
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             setupSpeechRecognition();
@@ -946,6 +948,15 @@
             
             // Add flat number validation
             document.getElementById('flatNumber').addEventListener('blur', validateFlatNumber);
+            
+            // Add scroll-into-view for all inputs/selects
+            document.querySelectorAll('#entryForm input, #entryForm select').forEach(el => {
+                el.addEventListener('focus', function() {
+                    setTimeout(() => {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 200);
+                });
+            });
         });
     </script>
 </body>
