@@ -892,7 +892,7 @@
             })
             .then(result => {
                 showToast("✅ Visitor entry added successfully!");
-                
+                speakText("Visitor entry added successfully");
                 // Reset form
                 document.getElementById('entryForm').reset();
                 document.getElementById('photo').src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
@@ -914,6 +914,12 @@
                 submitBtn.disabled = false;
             });
         });
+function speakText(text) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "en-US";
+  utterance.rate = 1; // Speed of speech (0.1 to 10)
+  speechSynthesis.speak(utterance);
+}
 
         // Auto-focus vehicle inputs
         document.querySelectorAll('.vehicle-grid input').forEach((input, index) => {
