@@ -48,6 +48,10 @@
             padding: 16px 10px 10px 10px;
             text-align: center;
             border-bottom: 1px solid #e3e8ee;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: #3a7bd5;
         }
 
         .header h3 {
@@ -431,8 +435,7 @@
                 margin-top: 0;
                 box-shadow: none;
                 border: none;
-                max-height: 100vh;
-                overflow-y: auto;
+                /* Remove max-height and overflow-y to keep header visible */
             }
             .quick-actions {
                 flex-direction: column;
@@ -685,7 +688,7 @@
                             </div>
                         </div>
                         <canvas id="canvas" style="display:none;"></canvas>
-                        <button type="button" class="btn btn-secondary" id="capture" style="height: 40px; align-self: center; margin-left: 10px;">
+                        <button type="button" class="btn btn-secondary" id="capture" style="height: 40px; align-self: center; ">
                             फोटो कॅप्चर करा / Capture Photo
                         </button>
                         <div class="action-buttons">
@@ -906,9 +909,12 @@
                     let isListening = false;
                     
                     recognition.onresult = (event) => {
-                        const transcript = Array.from(event.results)
+                        let transcript = Array.from(event.results)
                             .map(result => result[0].transcript)
                             .join('');
+                        if(inputId === 'phone') {
+                            transcript = transcript.replace(/\s+/g, '');
+                        }
                         input.value = transcript.trim();
                         btn.innerHTML = '<i class="fas fa-microphone"></i>';
                         isListening = false;
