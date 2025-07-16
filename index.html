@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quick Visitor Entry - CHAVAN PARADISE</title>
     <style>
+        :root {
+            --primary: #1976d2;
+            --primary-dark: #125ea2;
+            --secondary: #27ae60;
+            --accent: #e3f0ff;
+            --background: #f8fafc;
+            --card-bg: #fff;
+            --card-shadow: 0 4px 24px rgba(25, 118, 210, 0.10);
+            --border: #e3e8ee;
+            --text: #222;
+            --text-light: #607d8b;
+            --selected-bg: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        }
         * {
             margin: 0;
             padding: 0;
@@ -13,243 +26,323 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #e0e7ef 0%, #f5f7fa 100%);
             min-height: 100vh;
-            padding: 20px;
-            color: #333;
+            padding: 8px;
+            color: #222;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 600px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(44, 62, 80, 0.10);
             overflow: hidden;
-            backdrop-filter: blur(10px);
+            border: 1px solid #e3e8ee;
         }
 
         .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background: linear-gradient(90deg, #3a7bd5 0%, #00d2ff 100%);
             color: white;
-            padding: 20px;
+            padding: 16px 10px 10px 10px;
             text-align: center;
+            border-bottom: 1px solid #e3e8ee;
         }
 
-        .header h1 {
-            font-size: 2rem;
-            margin-bottom: 5px;
+        .header h3 {
+            font-size: 1.3rem;
             font-weight: 700;
-        }
-
-        .header p {
-            font-size: 1rem;
-            opacity: 0.9;
+            letter-spacing: 0.5px;
         }
 
         .main-content {
-            padding: 30px;
+            min-height: 60vh;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--background) 100%);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px var(--card-shadow);
+            padding: 32px 0 32px 0;
+            margin: 0 auto;
+            max-width: 600px;
+            position: relative;
+        }
+        .landing-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            padding: 28px 18px 18px 18px;
+            margin: 0 auto 18px auto;
+            max-width: 480px;
         }
 
         .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 5px;
-            margin-bottom: 30px;
+            display: flex;
+            gap: 18px;
+            margin-bottom: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
-
         .quick-action-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
+            background: var(--background);
+            border-radius: 16px;
+            padding: 22px 18px 16px 18px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(44, 62, 80, 0.08);
+            border: 2.5px solid var(--border);
+            transition: background 0.25s cubic-bezier(.4,2,.6,1), border 0.25s cubic-bezier(.4,2,.6,1), color 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s cubic-bezier(.4,2,.6,1), transform 0.18s cubic-bezier(.4,2,.6,1);
             cursor: pointer;
-            border: 2px solid transparent;
-        }
-
-        .quick-action-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            border-color: #3498db;
-        }
-
-        .quick-action-card.selected {
-            border-color: #3498db;
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            color: white;
-        }
-
-        .quick-action-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .quick-action-title {
-            font-size: 1.2rem;
-            font-weight: 600;
+            min-width: 120px;
+            min-height: 120px;
             margin-bottom: 8px;
+            position: relative;
         }
-
+        .quick-action-card:hover {
+            border-color: var(--primary);
+            background: var(--accent);
+            transform: translateY(-2px) scale(1.04);
+        }
+        .quick-action-card.selected {
+            border-color: var(--primary);
+            background: var(--selected-bg);
+            color: var(--primary);
+            box-shadow: 0 8px 32px var(--card-shadow);
+        }
+        .quick-action-icon {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        .quick-action-title {
+            font-size: 1.08rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
         .quick-action-desc {
-            font-size: 0.9rem;
-            opacity: 0.8;
+            font-size: 0.92rem;
+            opacity: 0.85;
         }
 
         .form-container {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 14px 6px 10px 6px;
+            box-shadow: 0 1px 6px rgba(44, 62, 80, 0.06);
+            margin-top: 10px;
+            border: 1px solid #e3e8ee;
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 5px;
-            margin-bottom: 25px;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
+            margin-bottom: 12px;
         }
 
         .form-group label {
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 3px;
             color: #2c3e50;
-            font-size: 0.9rem;
+            font-size: 0.92rem;
+            letter-spacing: 0.1px;
         }
 
         .form-group input,
         .form-group select {
-            padding: 12px 15px;
-            border: 2px solid #e1e8ed;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: #f8f9fa;
+            padding: 7px 8px;
+            border: 1.5px solid #dbeafe;
+            border-radius: 6px;
+            font-size: 0.98rem;
+            transition: all 0.15s;
+            background: #f4f8fb;
+            margin-bottom: 1px;
+            height: 32px;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #3498db;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            border-color: #3a7bd5;
+            background: #fff;
+            box-shadow: 0 0 0 1.5px #cbe7ff;
         }
 
         .vehicle-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
+            gap: 4px;
+            margin-bottom: 10px;
         }
-
         .vehicle-grid input {
             text-align: center;
             font-weight: bold;
             letter-spacing: 1px;
             text-transform: uppercase;
-            padding: 12px 8px;
-            font-size: 1rem;
+            padding: 7px 2px;
+            font-size: 0.95rem;
+            background: #f4f8fb;
+            border: 1.5px solid #dbeafe;
+            border-radius: 5px;
+            height: 28px;
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        @media (max-width: 600px) {
+            .vehicle-grid {
+                gap: 2px;
+            }
+            .vehicle-grid input {
+                font-size: 0.9rem;
+                padding: 5px 1px;
+                height: 22px;
+                min-width: 0;
+                width: 100%;
+                box-sizing: border-box;
+            }
         }
 
         .flat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 5px;
+            gap: 4px;
+            margin-bottom: 10px;
         }
 
         .camera-section {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
+            background: #e9f1fb;
+            border-radius: 8px;
+            padding: 10px 2px 8px 2px;
+            margin: 10px 0 14px 0;
             text-align: center;
+            box-shadow: 0 1px 4px rgba(52, 152, 219, 0.05);
+            border: 1px solid #dbeafe;
         }
 
         .camera-container {
             display: flex;
-            gap: 20px;
+            gap: 8px;
             justify-content: center;
-            margin: 20px 0;
+            align-items: center;
         }
 
         #video, #photo {
-            width: 200px;
-            height: 150px;
-            border-radius: 10px;
+            width: 90px;
+            height: 68px;
+            border-radius: 6px;
             object-fit: cover;
-            border: 3px solid #3498db;
+            border: 1.5px solid #3a7bd5;
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(44, 62, 80, 0.05);
+        }
+
+        #cameraErrorMsg {
+            color: #d32f2f;
+            font-weight: 600;
+            font-size: 0.92rem;
+            margin: 0 auto 0 auto;
+            text-align: center;
+            background: #fff3f3;
+            border: 1px solid #f8d7da;
+            border-radius: 6px;
+            padding: 7px 4px;
+            max-width: 220px;
         }
 
         .btn {
-            padding: 12px 25px;
+            padding: 7px 14px;
             border: none;
-            border-radius: 10px;
-            font-size: 1rem;
+            border-radius: 6px;
+            font-size: 0.98rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.15s;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
+            background: linear-gradient(90deg, #3a7bd5 0%, #00d2ff 100%);
+            color: #fff;
+            box-shadow: 0 1px 4px rgba(44, 62, 80, 0.05);
+            height: 32px;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-            color: white;
-            font-size: 1.1rem;
-            padding: 15px 30px;
-        }
-
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.3);
+        .btn:hover {
+            background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+            color: #fff;
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.10);
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            background: linear-gradient(90deg, #95a5a6 0%, #7f8c8d 100%);
             color: white;
         }
-
         .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(149, 165, 166, 0.3);
+            background: linear-gradient(90deg, #7f8c8d 0%, #95a5a6 100%);
+        }
+        .btn-success {
+            background: linear-gradient(90deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            height: 38px;
+            padding: 0 0;
+            font-size: 1.08rem;
+            font-weight: 700;
+            border-radius: 7px;
+            width: 100%;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-success:hover {
+            background: linear-gradient(90deg, #2ecc71 0%, #27ae60 100%);
         }
 
         .action-buttons {
             display: flex;
-            gap: 5px;
+            gap: 6px;
             justify-content: center;
-            margin-top: 25px;
+            margin-top: 10px;
+            margin-bottom: 0;
         }
 
         .toast {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            top: 24px;
+            right: 24px;
+            min-width: 220px;
+            max-width: 340px;
+            background: #fff;
+            color: #1976d2;
+            padding: 18px 28px;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(25, 118, 210, 0.18);
             z-index: 1000;
             display: none;
             animation: slideIn 0.3s ease;
+            font-size: 1.08rem;
+            font-weight: 600;
+            border: 2px solid #1976d2;
+            letter-spacing: 0.2px;
+            transition: background 0.2s, color 0.2s, border 0.2s;
+        }
+        .toast.toast-error {
+            background: #fff3f3;
+            color: #d32f2f;
+            border: 2px solid #d32f2f;
+        }
+        .toast.toast-success {
+            background: #e8f5e9;
+            color: #27ae60;
+            border: 2px solid #27ae60;
         }
 
         @keyframes slideIn {
@@ -277,182 +370,222 @@
         }
 
         .speech-btn {
-            background: #3498db;
+            background: #3a7bd5;
             color: white;
             border: none;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 28px;
+            height: 28px;
             cursor: pointer;
-            margin-left: 10px;
-            transition: all 0.3s ease;
+            margin-left: 6px;
+            transition: all 0.15s;
+            font-size: 0.95rem;
         }
-
         .speech-btn:hover {
             background: #2980b9;
-            transform: scale(1.1);
+            transform: scale(1.08);
         }
-
         .input-with-speech {
             display: flex;
             align-items: center;
         }
-
         .input-with-speech input {
             flex: 1;
         }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 5px;
-            }
-            
-            .container {
-                margin: 0;
-                border-radius: 10px;
-            }
-
-            .main-content {
-                padding: 15px;
-            }
-
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .vehicle-grid input {
-                padding: 12px 8px;
-                font-size: 1rem;
-                min-width: 0;
-                width: 100%;
-            }
-
-            .camera-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            #video, #photo {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
+        @media (max-width: 900px) {
+            .container { max-width: 99vw; }
+            .main-content { padding: 12px; }
+            .form-container { padding: 12px; }
+            .quick-actions { flex-direction: column; gap: 10px; }
+            .camera-container { flex-direction: column; gap: 10px; }
         }
-
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
             body {
                 padding: 2px;
             }
-            
             .container {
+                max-width: 100vw;
+                border-radius: 0;
                 margin: 0;
-                border-radius: 8px;
+                box-shadow: none;
+                border: none;
             }
-            
             .main-content {
-                padding: 10px;
+                padding: 4px 2px 4px 2px;
             }
-            
             .form-container {
-                padding: 15px;
+                padding: 6px 2px 4px 2px;
+                border-radius: 0;
+                margin-top: 4px;
+                box-shadow: none;
+                border: none;
             }
-            
+            .quick-actions {
+                flex-direction: column;
+                gap: 4px;
+                margin-bottom: 10px;
+            }
             .quick-action-card {
-                padding: 15px;
-            }
-            
-            .vehicle-grid input {
-                padding: 8px 4px;
-                font-size: 14px;
                 min-width: 0;
-                width: 100%;
-            }
-
-            .form-group input,
-            .form-group select {
-                padding: 12px 8px;
-                font-size: 16px; /* Prevents zoom on iOS */
-            }
-            
-            .btn {
-                padding: 10px 20px;
+                padding: 8px 2px;
                 font-size: 0.9rem;
             }
-        
-            .action-buttons {
-                gap: 5px;
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 4px;
+                margin-bottom: 6px;
             }
-        }
-        
-        @media (max-width: 360px) {
-            body {
-                padding: 0;
+            .form-group label {
+                font-size: 0.88rem;
             }
-            
-            .container {
-                margin: 0;
+            .form-group input,
+            .form-group select {
+                font-size: 0.95rem;
+                padding: 6px 4px;
+                height: 28px;
+            }
+            .vehicle-grid {
+                gap: 2px;
+            }
+            .vehicle-grid input {
+                font-size: 0.9rem;
+                padding: 5px 1px;
+                height: 22px;
+            }
+            .flat-grid {
+                gap: 2px;
+            }
+            .camera-section {
+                padding: 4px 1px 2px 1px;
+                margin: 4px 0 10px 0;
                 border-radius: 0;
             }
-            
-            .main-content {
-                padding: 8px;
+            .camera-container {
+                flex-direction: column;
+                gap: 4px;
             }
-            
-            .form-container {
-                padding: 12px;
+            #video, #photo {
+                width: 98vw;
+                max-width: 240px;
+                height: 60vw;
+                max-height: 120px;
+                border-radius: 4px;
             }
-            
-            .quick-action-card {
-                padding: 12px;
+            #cameraErrorMsg {
+                font-size: 0.85rem;
+                padding: 4px 2px;
+                border-radius: 4px;
+                max-width: 98vw;
             }
-            
-            .quick-action-icon {
-                font-size: 2rem;
-            }
-            
-            .quick-action-title {
-                font-size: 1rem;
-            }
-            
-            .quick-action-desc {
-                font-size: 0.8rem;
-            }
-            
-            .vehicle-grid {
-                gap: 3px;
-                margin: 4px 0;
-            }
-            
-            .vehicle-grid input {
-                padding: 6px 3px;
-                font-size: 12px;
-            }
-            
-            .form-group input,
-            .form-group select {
-                padding: 10px 6px;
-                font-size: 16px;
-            }
-            
             .btn {
-                padding: 8px 16px;
-                font-size: 0.8rem;
+                width: 100%;
+                font-size: 0.95rem;
+                padding: 7px 0;
+                height: 30px;
+                margin-bottom: 4px;
             }
-            
-            .header h1 {
-                font-size: 1.5rem;
+            .action-buttons {
+                flex-direction: column;
+                gap: 4px;
+                margin-top: 6px;
             }
-            
-            .header p {
-                font-size: 0.9rem;
+            .speech-btn {
+                width: 24px;
+                height: 24px;
+                font-size: 0.85rem;
+                margin-left: 4px;
             }
+            .btn-success { height: 36px; font-size: 1rem; }
+        }
+        .summary-box {
+            background: #e9f7ef;
+            border: 1.5px solid #b2dfdb;
+            border-radius: 8px;
+            padding: 10px 8px;
+            margin-bottom: 14px;
+            font-size: 1rem;
+            color: #145a32;
+            text-align: left;
+        }
+        .section-title {
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: #1565c0;
+            margin-bottom: 8px;
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .helper-text { display: none; }
+        .required-asterisk {
+            color: #d32f2f;
+            margin-left: 2px;
+            font-size: 1.1em;
+        }
+        .form-group input:required, .form-group select:required {
+            border-left: 3px solid #d32f2f;
+        }
+        .form-group input:required:focus, .form-group select:required:focus {
+            border-left: 3px solid #d32f2f;
+        }
+        .btn, .btn-success, .btn-secondary {
+            font-size: 1.08rem;
+            font-weight: 700;
+            border-radius: 7px;
+            padding: 12px 0;
+            width: 100%;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .action-buttons {
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .form-container {
+            padding: 18px 8px 10px 8px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .vehicle-grid, .flat-grid {
+            margin-bottom: 10px;
+        }
+        .camera-section {
+            margin: 12px 0 18px 0;
+        }
+        @media (max-width: 600px) {
+            .form-container { padding: 8px 2px 4px 2px; }
+            .summary-box { font-size: 0.98rem; padding: 8px 4px; }
+            .section-title { font-size: 1.01rem; margin-top: 12px; }
+            .helper-text { font-size: 0.88rem; }
+            .btn, .btn-success, .btn-secondary { font-size: 1rem; padding: 10px 0; }
+        }
+        /* Update the reset icon button style for better alignment and highlight */
+        .reset-icon-btn {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            background: var(--primary);
+            border: none;
+            cursor: pointer;
+            font-size: 1.15rem;
+            color: #fff;
+            z-index: 2;
+            padding: 8px;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+        }
+        .reset-icon-btn:hover {
+            background: var(--primary-dark);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.18);
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -464,115 +597,92 @@
             <h3><i class="fas fa-building"></i> CHAVAN PARADISE PHASE 1</h3>           
         </div>
         <div class="main-content">
-            <!-- Quick Action Cards -->
-            <div class="quick-actions">
-                <div class="quick-action-card" data-type="relatives">
-                    <i class="fas fa-user quick-action-icon" style="color: #3498db;"></i>
-                    <div class="quick-action-title">Family & Friends</div>
-                    <div class="quick-action-desc">Quick entry for relatives and known visitors</div>
+            <div class="landing-card">
+                <div class="summary-box" id="summaryBox">
+                              
                 </div>
-                
-                <div class="quick-action-card" data-type="delivery">
-                    <i class="fas fa-truck quick-action-icon" style="color: #e67e22;"></i>
-                    <div class="quick-action-title">Delivery</div>
-                    <div class="quick-action-desc">Food, packages, and service deliveries</div>
+                <div class="section-title" id="visitorTypeTitle">कृपया पाहुण्याचा प्रकार निवडा</div>            
+                <div class="visitor-type-prompt" id="visitorTypePrompt" style="color:#1976d2; font-size:1.05rem; font-weight:600; margin-bottom:8px;"></div>
+                <div class="quick-actions">
+                    <div class="quick-action-card" data-type="relatives">
+                        <i class="fas fa-user quick-action-icon" style="color: #3498db;"></i>
+                        <div class="quick-action-title">कुटुंब आणि मित्र / Family & Friends</div>
+                        <div class="quick-action-desc">नातेवाईक व ओळखीचे पाहुणे / Quick entry for relatives and known visitors</div>
+                    </div>
+                    
+                    <div class="quick-action-card" data-type="delivery">
+                        <i class="fas fa-truck quick-action-icon" style="color: #e67e22;"></i>
+                        <div class="quick-action-title">डिलिव्हरी / Delivery</div>
+                        <div class="quick-action-desc">जेवण, पॅकेजेस, सेवा / Food, packages, and service deliveries</div>
+                    </div>
+                    
+                    <!-- Housekeeping card removed as per request -->
+                    
+                    <div class="quick-action-card" data-type="other">
+                        <i class="fas fa-question quick-action-icon" style="color: #9b59b6;"></i>
+                        <div class="quick-action-title">इतर / Other</div>
+                        <div class="quick-action-desc">इतर पाहुणे / Other visitors and special cases</div>
+                    </div>
                 </div>
-                
-                <div class="quick-action-card" data-type="housekeeping">
-                    <i class="fas fa-home quick-action-icon" style="color: #27ae60;"></i>
-                    <div class="quick-action-title">Housekeeping</div>
-                    <div class="quick-action-desc">Cleaning, maintenance, and service staff</div>
-                </div>
-                
-                <div class="quick-action-card" data-type="other">
-                    <i class="fas fa-question quick-action-icon" style="color: #9b59b6;"></i>
-                    <div class="quick-action-title">Other</div>
-                    <div class="quick-action-desc">Other visitors and special cases</div>
-                </div>
-            </div>
 
-            <!-- Form Container -->
-            <div class="form-container hidden" id="visitorForm">
-                <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50;">
-                    <i class="fas fa-user-plus"></i> Visitor Entry Form
-                </h2>
-
-                <form id="entryForm">
-                    <div class="form-grid">
+                <!-- Form Container -->
+                <div class="form-container hidden" id="visitorForm">
+                    <button type="button" class="reset-icon-btn" id="resetForm" title="Reset Form">
+                        <i class="fas fa-undo"></i>
+                    </button>
+                    <form id="entryForm" style="margin-top: 18px;">
                         <div class="form-group">
-                            <label for="name"><i class="fas fa-user"></i> Visitor Name *</label>
+                            <label for="name">नाव / Name <span class="required-asterisk">*</span></label>
                             <div class="input-with-speech">
-                                <input type="text" id="name" name="name" maxlength="40" placeholder="Enter visitor name" required>
+                                <input type="text" id="name" name="name" maxlength="40" required>
                                 <button type="button" class="speech-btn" id="speak-name" title="Voice Input">
                                     <i class="fas fa-microphone"></i>
                                 </button>
                             </div>
                         </div>
-
                         <div class="form-group">
-                            <label for="phone"><i class="fas fa-phone"></i> Phone Number *</label>
+                            <label for="phone">फोन नंबर / Phone Number <span class="required-asterisk">*</span></label>
                             <div class="input-with-speech">
-                                <input type="tel" id="phone" name="phone" maxlength="10" minlength="10" 
-                                       pattern="[0-9]{10}" placeholder="Enter 10-digit number" required>
+                                <input type="tel" id="phone" name="phone" maxlength="10" minlength="10" pattern="[0-9]{10}" required>
                                 <button type="button" class="speech-btn" id="speak-phone" title="Voice Input">
                                     <i class="fas fa-microphone"></i>
                                 </button>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="vehicle"><i class="fas fa-car"></i> Vehicle Number</label>
-                        <div class="vehicle-grid">
-                            <input type="text" id="vehicle1" maxlength="2" placeholder="MH" style="text-transform: uppercase;">
-                            <input type="number" id="vehicle2" maxlength="2" placeholder="12">
-                            <input type="text" id="vehicle3" maxlength="2" placeholder="XX" style="text-transform: uppercase;">
-                            <input type="number" id="vehicle4" maxlength="4" placeholder="1234">
+                        <div class="form-group" id="flatSection">
+                            <label>फ्लॅट / Destination Flat <span class="required-asterisk">*</span></label>
+                            <div class="flat-grid">
+                                <select id="wingNumber" required>
+                                    <option value=""></option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                </select>
+                                <input type="number" id="flatNumber" name="flatNumber" min="101" max="1006" required style="text-align: center; font-weight: bold;">
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="form-group hidden" id="flatSection">
-                        <label><i class="fas fa-home"></i> Destination Flat *</label>
-                        <div class="flat-grid">
-                            <select id="wingNumber" required>
-                                <option value="">Select Wing</option>
-                                <option value="A">Wing A</option>
-                                <option value="B">Wing B</option>
-                                <option value="C">Wing C</option>
-                            </select>
-                            <input type="number" id="flatNumber" name="flatNumber" 
-                                   placeholder="Enter flat number (101-106, 201-206, etc.)" 
-                                   min="101" max="1006" required 
-                                   style="text-align: center; font-weight: bold;">
+                        <div class="form-group">
+                            <label for="vehicle">वाहन क्रमांक / Vehicle Number</label>
+                            <input type="text" id="vehicleNumber" maxlength="10" required>
                         </div>
-                    </div>
-
-                    <!-- Optional Camera Section -->
-                    <div class="camera-section hidden" id="cameraSection">
-                        <h3><i class="fas fa-camera"></i> Photo Capture (Required if no vehicle number)</h3>
-                        <div class="camera-container">
-                            <video id="video" autoplay muted></video>
-                            <img id="photo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Captured photo">
+                        <div class="camera-section" id="cameraSection">
+                            <div class="camera-container" style="align-items: center;">
+                                <video id="video" autoplay muted></video>
+                                <img id="photo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Captured photo">
+                                <button type="button" class="btn btn-secondary" id="capture" style="height: 40px; align-self: center; margin-left: 10px;">
+                                    फोटो कॅप्चर करा / Capture Photo
+                                </button>
+                            </div>
                         </div>
-                        <button type="button" class="btn btn-secondary" id="capture">
-                            <i class="fas fa-camera"></i> Capture Photo
-                        </button>
-                    </div>
+                        <canvas id="canvas" style="display:none;"></canvas>
 
-                    <canvas id="canvas" style="display:none;"></canvas>
-
-                    <div class="action-buttons">
-                        <button type="button" class="btn btn-secondary" id="resetForm">
-                            <i class="fas fa-undo"></i> Reset Form
-                        </button>
-                        <button type="button" class="btn btn-secondary" id="toggleCamera">
-                            <i class="fas fa-camera"></i> Toggle Photo
-                        </button>
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-check"></i> Allow Entry
-                        </button>
-                    </div>
-                </form>
+                        <div class="action-buttons">
+                            <button type="submit" class="btn btn-success">
+                                प्रवेश द्या / Allow Entry
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -589,14 +699,20 @@
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             toast.textContent = message;
-            toast.style.display = 'block';
-            
+            toast.className = 'toast';
             if (type === 'error') {
-                toast.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
+                toast.classList.add('toast-error');
             } else {
-                toast.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
+                toast.classList.add('toast-success');
             }
-
+            toast.style.display = 'block';
+            // Play sound for the toast message
+            if ('speechSynthesis' in window && typeof SpeechSynthesisUtterance !== "undefined") {
+                const utterance = new SpeechSynthesisUtterance(message);
+                utterance.lang = "mr-IN";
+                utterance.rate = 1.05;
+                speechSynthesis.speak(utterance);
+            }
             setTimeout(() => {
                 toast.style.display = 'none';
             }, 3000);
@@ -641,6 +757,9 @@
                 
                 // Show form
                 document.getElementById('visitorForm').classList.remove('hidden');
+                document.getElementById('summaryBox').style.display = 'none';
+                document.getElementById('visitorTypeTitle').style.display = 'none';
+                document.getElementById('visitorTypePrompt').style.display = 'none';
                 
                 // Hide quick action cards
                 document.querySelector('.quick-actions').classList.add('hidden');
@@ -650,6 +769,10 @@
                 
                 // Scroll to form
                 document.getElementById('visitorForm').scrollIntoView({ behavior: 'smooth' });
+
+                // Remove toggle camera logic and always initialize camera when form is shown
+                document.getElementById('cameraSection').classList.remove('hidden');
+                initializeCamera();
             });
         });
 
@@ -674,45 +797,44 @@
             
             // Set default values based on type
             if (type === 'delivery') {
-                document.getElementById('name').placeholder = 'Enter delivery person name';
+                document.getElementById('name').placeholder = '';
             } else if (type === 'housekeeping') {
-                document.getElementById('name').placeholder = 'Enter staff name';
+                document.getElementById('name').placeholder = '';
             } else {
-                document.getElementById('name').placeholder = 'Enter visitor name';
+                document.getElementById('name').placeholder = '';
             }
         }
-
-        // Toggle camera
-        document.getElementById('toggleCamera').addEventListener('click', function() {
-            const cameraSection = document.getElementById('cameraSection');
-            isCameraEnabled = !isCameraEnabled;
-            
-            if (isCameraEnabled) {
-                cameraSection.classList.remove('hidden');
-                this.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Camera';
-                initializeCamera();
-            } else {
-                cameraSection.classList.add('hidden');
-                this.innerHTML = '<i class="fas fa-camera"></i> Toggle Photo';
-            }
-        });
 
         // Initialize camera
         function initializeCamera() {
             const video = document.getElementById('video');
-            
+            const cameraSection = document.getElementById('cameraSection');
+            const photo = document.getElementById('photo');
+            // Remove any previous error message
+            let errorMsg = document.getElementById('cameraErrorMsg');
+            if (errorMsg) errorMsg.remove();
             navigator.mediaDevices.getUserMedia({
                 video: { facingMode: { ideal: "environment" } }
             })
             .then(stream => {
                 video.srcObject = stream;
+                video.style.display = '';
+                photo.style.display = '';
             })
             .catch(err => {
                 console.error("Camera access error:", err);
                 showToast("Camera access denied. Photo capture disabled.", 'error');
-                document.getElementById('cameraSection').classList.add('hidden');
-                isCameraEnabled = false;
-                document.getElementById('toggleCamera').innerHTML = '<i class="fas fa-camera"></i> Toggle Photo';
+                // Show error message in camera section
+                video.style.display = 'none';
+                photo.style.display = 'none';
+                let msg = document.createElement('div');
+                msg.id = 'cameraErrorMsg';
+                msg.style.color = 'red';
+                msg.style.fontWeight = 'bold';
+                msg.style.margin = '20px auto';
+                msg.style.textAlign = 'center';
+                msg.innerText = 'कॅमेरा अॅक्सेस नाकारला / Camera access denied. फोटो कॅप्चर करता येणार नाही.';
+                cameraSection.appendChild(msg);
             });
         }
 
@@ -751,6 +873,9 @@
             document.querySelector('.quick-actions').classList.remove('hidden');
             // Hide the form
             document.getElementById('visitorForm').classList.add('hidden');
+            document.getElementById('summaryBox').style.display = '';
+            document.getElementById('visitorTypeTitle').style.display = '';
+            document.getElementById('visitorTypePrompt').style.display = '';
         });
 
         // Speech recognition
@@ -836,21 +961,13 @@
             }
             
             // Check if either vehicle number or photo is provided
-            const vehicle1 = document.getElementById('vehicle1').value.trim();
-            const vehicle2 = document.getElementById('vehicle2').value.trim();
-            const vehicle3 = document.getElementById('vehicle3').value.trim();
-            const vehicle4 = document.getElementById('vehicle4').value.trim();
-            const hasVehicleNumber = vehicle1 || vehicle2 || vehicle3 || vehicle4;
+            const vehicleNumber = document.getElementById('vehicleNumber').value.trim();
+            const hasVehicleNumber = vehicleNumber;
             const hasPhoto = base64Image && base64Image.length > 100; // Check if photo is actually captured
             
            
             
             // Prepare data
-            const vehicleNumber = document.getElementById('vehicle1').value + 
-                                document.getElementById('vehicle2').value + " " +
-                                document.getElementById('vehicle3').value + " " +
-                                document.getElementById('vehicle4').value;
-            
             const data = {
                 "Entity": {
                     "Name": name,
@@ -892,7 +1009,7 @@
             })
             .then(result => {
                 showToast("✅ Visitor entry added successfully!");
-                speakText("Visitor entry added successfully");
+                speakText("Welcome "+name+" to Chavan Paradise");
                 // Reset form
                 document.getElementById('entryForm').reset();
                 document.getElementById('photo').src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
@@ -904,6 +1021,9 @@
                 selectedVisitorType = '';
                 // Show quick action cards again
                 document.querySelector('.quick-actions').classList.remove('hidden');
+                document.getElementById('summaryBox').style.display = '';
+                document.getElementById('visitorTypeTitle').style.display = '';
+                document.getElementById('visitorTypePrompt').style.display = '';
             })
             .catch(error => {
                 showToast(`❌ Error: ${error.message}`, 'error');
