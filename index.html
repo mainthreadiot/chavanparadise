@@ -133,6 +133,7 @@
             box-shadow: 0 1px 6px rgba(44, 62, 80, 0.06);
             margin-top: 10px;
             border: 1px solid #e3e8ee;
+            scroll-margin-top: 80px; /* Ensures form scrolls below header */
         }
 
         .form-grid {
@@ -168,7 +169,7 @@
             transition: all 0.15s;
             background: #f4f8fb;
             margin-bottom: 1px;
-            height: 32px;
+            height: 42px; /* Increased from 37px to 42px */
         }
 
         .form-group input:focus,
@@ -195,7 +196,7 @@
             background: #f4f8fb;
             border: 1.5px solid #dbeafe;
             border-radius: 5px;
-            height: 28px;
+            height: 38px; /* Increased from 33px to 38px */
             min-width: 0;
             width: 100%;
             box-sizing: border-box;
@@ -207,7 +208,7 @@
             .vehicle-grid input {
                 font-size: 0.9rem;
                 padding: 5px 1px;
-                height: 30px;
+                height: 35px; /* Increased from 30px to 35px for mobile */
                 min-width: 0;
                 width: 100%;
                 box-sizing: border-box;
@@ -459,7 +460,7 @@
             .form-group select {
                 font-size: 0.95rem;
                 padding: 6px 4px;
-                height: 28px;
+                height: 38px; /* Increased from 33px to 38px for mobile */
             }
             .vehicle-grid {
                 gap: 2px;
@@ -467,7 +468,7 @@
             .vehicle-grid input {
                 font-size: 0.9rem;
                 padding: 5px 1px;
-                height: 25px;
+                height: 35px; /* Increased from 30px to 35px for mobile */
             }
             .flat-grid {
                 gap: 2px;
@@ -643,7 +644,7 @@
                 <!-- Form Container -->
                 <div class="form-container hidden" id="visitorForm">
                     <button type="button" class="reset-icon-btn" id="resetForm" title="Reset Form">
-                        <i class="fas fa-undo"></i>
+                        <i class="fas fa-undo">"परत जा"</i>
                     </button>
                     <form id="entryForm" style="margin-top: 18px;">
                         <div class="form-group">
@@ -779,11 +780,14 @@
                 // Hide quick action cards
                 document.querySelector('.quick-actions').classList.add('hidden');
                 
+                // Ensure header is always visible
+                document.querySelector('.header').style.display = '';
+                
                 // Update form based on visitor type
                 updateFormForVisitorType(selectedVisitorType);
                 
                 // Scroll to form
-                document.getElementById('visitorForm').scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('visitorForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
                 // Remove toggle camera logic and always initialize camera when form is shown
                 document.getElementById('cameraSection').classList.remove('hidden');
